@@ -151,10 +151,15 @@ body {
 }
 
 canvas {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.canvas_background {
   margin: 10% auto;
   border: 1px solid #9d9d9d;
   width: 512px;
   height: 512px;
-  image-rendering: pixelated;
-  background-color: #ccc;
+  background-image: url(../assets/img/canvas-background-light.png);
 }
