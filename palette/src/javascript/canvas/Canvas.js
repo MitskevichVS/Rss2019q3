@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 export default class Canvas {
   constructor() {
     this.state = {
@@ -21,9 +20,7 @@ export default class Canvas {
     this.state.currentListeners.length = 0;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   RGBToHex(r, g, b) {
-    console.log(this);
     let R = r.toString(16);
     let G = g.toString(16);
     let B = b.toString(16);
@@ -117,11 +114,7 @@ export default class Canvas {
       let ycoord = mous.y;
       while (ycoord >= 1 && R === Rn && G === Gn && B === Bn && A === An) {
         const cnvs = ctx.getImageData(mous.x, ycoord - 1, 1, 1).data;
-        // [Rn, Bn, Gn, An] = cnvs;
-        Rn = cnvs[0];
-        Bn = cnvs[1];
-        Gn = cnvs[2];
-        An = cnvs[3];
+        [Rn, Bn, Gn, An] = cnvs;
         if (ycoord >= 1 && R === Rn && G === Gn && B === Bn && A === An) {
           ycoord -= 1;
         } else if (ycoord === 0 || R !== Rn || G !== Gn || B !== Bn || A !== An) {
@@ -209,7 +202,6 @@ export default class Canvas {
       mouse.y = Math.floor(event.offsetY / 16);
 
       const cnvs = ctx.getImageData(mouse.x, mouse.y, 1, 1).data;
-      console.log(cnvs);
       const R = cnvs[0];
       const B = cnvs[1];
       const G = cnvs[2];
@@ -230,9 +222,7 @@ export default class Canvas {
 
       while (stack.length > 0) {
         const coordFromStack = stack.pop();
-        // [mouse.x, mouse.y] = coordFromStack;
-        mouse.x = coordFromStack[0];
-        mouse.y = coordFromStack[1];
+        [mouse.x, mouse.y] = coordFromStack;
         goUp(mouse, R, G, B, A);
         paintColumn(mouse, R, G, B, A, event);
       }

@@ -15,5 +15,6 @@ module.exports = {
   rules: {
     "no-console": "off",
     "import/extensions": "ignorePackages",
+    "class-methods-use-this": ["error", { "exceptMethods": ['RGBToHex'] }]
   },
 };
