@@ -8,6 +8,11 @@ export default class ToolsSelection {
     return this;
   }
 
+  colorPickerTool() {
+    const eyedropper = document.querySelector('.colorpick-eyedropper-input-trigger');
+    eyedropper.click();
+  }
+
   /* highlightLayer(e) {
     const element = document.getElementById(e);
     const parentElement = element.parentNode;
