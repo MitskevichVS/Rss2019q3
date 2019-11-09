@@ -15,7 +15,11 @@ class App {
     const tools = new ToolsSelection();
     const canvas = new Canvas();
     canvas.setResolution();
+    const savedImage = localStorage.getItem('canvasImage');
 
+    if (savedImage) {
+      canvas.setImageFromLocalStorage(savedImage);
+    }
 
     function addListeners() {
       const toolsConatainer = document.querySelector('.main-container__tools__pallete');
@@ -44,6 +48,7 @@ class App {
             break;
           case 'Color':
             canvas.removeEventListenersCanvas();
+            tools.colorPickerTool();
             break;
           default:
             break;

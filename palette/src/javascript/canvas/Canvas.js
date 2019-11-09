@@ -5,6 +5,16 @@ export default class Canvas {
     };
   }
 
+  setImageFromLocalStorage(item) {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = item;
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+    };
+  }
+
   setResolution() {
     const canvas = document.getElementById('canvas');
     canvas.width = 32;
@@ -83,6 +93,7 @@ export default class Canvas {
       draw = false;
       leftButtonFlag = false;
       rightButtonFlag = false;
+      localStorage.setItem('canvasImage', canvas.toDataURL());
     };
 
     canvas.addEventListener('mousedown', penToolMousedown);
@@ -226,6 +237,8 @@ export default class Canvas {
         goUp(mouse, R, G, B, A);
         paintColumn(mouse, R, G, B, A, event);
       }
+
+      localStorage.setItem('canvasImage', canvas.toDataURL());
     };
 
     canvas.addEventListener('mousedown', paintBucketToolMousedown);
