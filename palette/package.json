@@ -4,7 +4,7 @@
   "description": "rs school 2019 q3 codejam palette",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint *.js"
   },
   "author": "Mitskevich",
   "license": "ISC",
