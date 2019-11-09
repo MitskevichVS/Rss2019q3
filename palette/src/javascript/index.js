@@ -6,13 +6,14 @@ class App {
     this.app = {
       primaryColor: '#010101',
       secondaryColor: '#ffffff',
-      currentTool: 'pen',
+      currentTool: '',
     };
   }
 
   start() {
     const tools = new ToolsSelection();
     const canvas = new Canvas();
+    canvas.setResolution();
 
     console.log(canvas);
 
@@ -20,6 +21,8 @@ class App {
       const toolsConatainer = document.querySelector('.main-container__tools__pallete');
       // const colorContainer = document.querySelector('.main-container__tools__colors');
       // const canvas = document.querySelector('#canvas');
+      // const ctx = canvas.getContext('2d');
+      const canvasContainer = document.querySelector('.canvas_background');
 
       toolsConatainer.addEventListener('click', (event) => {
         if (event.target.id || event.path[1].id) {
@@ -28,8 +31,22 @@ class App {
           } else {
             this.currentTool = event.path[1].id;
           }
-          console.log(this.currentTool);
           tools.highlight(this.currentTool);
+        }
+      });
+
+      canvasContainer.addEventListener('mouseenter', () => {
+        switch (this.currentTool) {
+          case 'Pen':
+            canvas.removeEventListenersCanvas();
+            canvas.penDraw(this);
+            break;
+          case 'Bucket':
+            canvas.removeEventListenersCanvas();
+            canvas.paintBucket(this);
+            break;
+          default:
+            break;
         }
       });
 
