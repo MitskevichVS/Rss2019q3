@@ -2,7 +2,7 @@ export default class ToolsSelection {
   highlight(e) {
     const element = document.getElementById(e);
     const parentElement = element.parentNode;
-    const parentElementChildArray = parentElement.childNodes;
+    const parentElementChildArray = [...parentElement.children];
     parentElementChildArray.forEach((item) => { item.classList.remove('selected_tools'); });
     element.classList.add('selected_tools');
     return this;

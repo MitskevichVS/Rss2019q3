@@ -116,8 +116,20 @@ body {
   display: flex;
 }
 
+.selected_tools {
+  background-color: #cccccc;
+}
+
 .tools_items:nth-child(2) {
   border-bottom: 1px solid #ededed;
+}
+
+.tools_items:last-child.tool_item1 i {
+  color: #cccccc;
+}
+
+.tools_items:last-child.tool_item1 p {
+  color: #cccccc;
 }
 
 .tools_items i {

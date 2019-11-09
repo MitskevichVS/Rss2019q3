@@ -1,5 +1,5 @@
-import ToolsSelection from './Tools/Tools';
-// import Canvas from './canvas/Canvas';
+import ToolsSelection from './Tools/Tools.js';
+import Canvas from './canvas/Canvas.js';
 
 class App {
   constructor() {
@@ -12,7 +12,9 @@ class App {
 
   start() {
     const tools = new ToolsSelection();
-    // const canvas = new Canvas();
+    const canvas = new Canvas();
+
+    console.log(canvas);
 
     function addListeners() {
       const toolsConatainer = document.querySelector('.main-container__tools__pallete');
@@ -26,6 +28,7 @@ class App {
           } else {
             this.currentTool = event.path[1].id;
           }
+          console.log(this.currentTool);
           tools.highlight(this.currentTool);
         }
       });
@@ -40,10 +43,3 @@ class App {
 
 const app = new App();
 app.start();
-
-/* window.onload = () => {
-  const canvas = document.querySelector('#canvas');
-  canvas.width = 128;
-  canvas.height = 128;
-  const ctx = canvas.getContext('2d');
-}; */
