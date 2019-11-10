@@ -125,14 +125,6 @@ body {
   border-bottom: 1px solid #ededed;
 }
 
-.tools_items:last-child.tool_item1 i {
-  color: #cccccc;
-}
-
-.tools_items:last-child.tool_item1 p {
-  color: #cccccc;
-}
-
 .tools_items i {
   padding: 6% 5% 0 5%;
   color: #7e7e7e;
@@ -161,7 +153,7 @@ body {
   border-radius: 15px;
   width: 25px;
   height: 25px;
-  margin: 4% 5% 0px 0%;
+  margin: 4% 5% 0px 5%;
 }
 
 #primary_color::-webkit-color-swatch-wrapper {
@@ -175,9 +167,7 @@ body {
 }
 
 .colorpick-eyedropper-input-trigger {
-  margin: 4% 0% 0px 5%;
-  width: 25px;
-  height: 25px;
+  display: none;
 }
 
 .input_color-label {
