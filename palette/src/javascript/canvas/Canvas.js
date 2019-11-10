@@ -107,6 +107,54 @@ export default class Canvas {
     canvas.addEventListener('contextmenu', event => event.preventDefault());
   }
 
+  eraser(app) {
+    this.removeEventListenersCanvas(app);
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const mouse = { x: 0, y: 0 };
+    let erase = false;
+
+    const eraseToolMousedown = (event) => {
+      this.state.currentListeners.push(['mousedown', eraseToolMousedown]);
+      mouse.x = Math.floor(event.offsetX / 16);
+      mouse.y = Math.floor(event.offsetY / 16);
+      erase = true;
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillRect(mouse.x, mouse.y, 3, 3);
+    };
+
+    const eraseToolMousemove = (event) => {
+      this.state.currentListeners.push(['mousemove', eraseToolMousemove]);
+      if (erase === true) {
+        mouse.x = Math.floor(event.offsetX / 16);
+        mouse.y = Math.floor(event.offsetY / 16);
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillRect(mouse.x, mouse.y, 3, 3);
+      }
+    };
+
+    const eraseToolMouseup = (event) => {
+      this.state.currentListeners.push(['mouseup', eraseToolMouseup]);
+      mouse.x = Math.floor(event.offsetX / 16);
+      mouse.y = Math.floor(event.offsetY / 16);
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillRect(mouse.x, mouse.y, 3, 3);
+      ctx.globalCompositeOperation = 'source-over';
+      erase = false;
+      localStorage.setItem('canvasImage', canvas.toDataURL());
+    };
+
+    canvas.addEventListener('mousedown', eraseToolMousedown);
+
+    canvas.addEventListener('mousemove', eraseToolMousemove);
+
+    canvas.addEventListener('mouseup', eraseToolMouseup);
+
+    canvas.addEventListener('mouseleave', () => { erase = false; });
+
+    canvas.addEventListener('contextmenu', event => event.preventDefault());
+  }
+
   paintBucket(app) {
     this.removeEventListenersCanvas(app);
     const canvas = document.getElementById('canvas');
