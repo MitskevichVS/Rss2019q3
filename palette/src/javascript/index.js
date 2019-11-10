@@ -50,9 +50,41 @@ class App {
             canvas.removeEventListenersCanvas();
             tools.colorPickerTool();
             break;
+          case 'Erase':
+            canvas.removeEventListenersCanvas();
+            canvas.eraser(this);
+            break;
           default:
             break;
         }
+      });
+
+      document.addEventListener('keypress', (event) => {
+        switch (event.code) {
+          case 'KeyB':
+            this.currentTool = 'Bucket';
+            canvas.removeEventListenersCanvas();
+            canvas.paintBucket(this);
+            break;
+          case 'KeyC':
+            this.currentTool = 'Color';
+            canvas.removeEventListenersCanvas();
+            tools.colorPickerTool();
+            break;
+          case 'KeyP':
+            this.currentTool = 'Pen';
+            canvas.removeEventListenersCanvas();
+            canvas.penDraw(this);
+            break;
+          case 'KeyE':
+            this.currentTool = 'Erase';
+            canvas.removeEventListenersCanvas();
+            canvas.eraser(this);
+            break;
+          default:
+            break;
+        }
+        tools.highlight(this.currentTool);
       });
 
       return this;
