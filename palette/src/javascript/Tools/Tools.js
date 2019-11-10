@@ -13,34 +13,12 @@ export default class ToolsSelection {
     eyedropper.click();
   }
 
-  /* highlightLayer(e) {
-    const element = document.getElementById(e);
-    const parentElement = element.parentNode;
-    const parentElementChildArray = parentElement.childNodes;
-    parentElementChildArray.forEach((item) => { item.classList.remove('selected_layer'); });
-    element.classList.add('selected_layer');
+  changeColors(app, primary, secondary) {
+    const primaryIndicator = primary;
+    const secondaryIndicator = secondary;
+
+    primaryIndicator.value = app.primaryColor;
+    secondaryIndicator.style.backgroundColor = app.secondaryColor;
     return this;
   }
-
-  changePrimaryColor(color) {
-    const primary = document.getElementById('color_primary');
-
-    primary.style.backgroundColor = color;
-    return this;
-  }
-
-  changeSecondaryColor(color) {
-    const secondary = document.getElementById('color_secondary');
-
-    secondary.style.backgroundColor = color;
-    return this;
-  }
-
-  swapColors() {
-    const primary = document.getElementById('color_primary');
-    const secondary = document.getElementById('color_secondary');
-
-    primary.style.backgroundColor = this.primaryColor;
-    secondary.style.backgroundColor = this.secondaryColor;
-  } */
 }

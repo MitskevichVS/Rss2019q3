@@ -35,7 +35,7 @@
         <div class="main-container__tools__pallete">
           <div class="tools_items tool_item1" id="Bucket"><i class="fas fa-fill-drip"></i><p>Paint bucket (B)</p></div>
           <div class="tools_items tool_item1" id="Color"><i class="fas fa-eye-dropper"></i><p>Color picker (C)</p></div>
-          <div class="tools_items tool_item1" id="Pen"><i class="fas fa-pencil-alt"></i><p>Pencil (P)</p></div>
+          <div class="tools_items tool_item1 selected_tools" id="Pen"><i class="fas fa-pencil-alt"></i><p>Pencil (P)</p></div>
           <div class="tools_items tool_item1" id="Erase"><i class="fas fa-eraser"></i><p>Erase (E)</p></div>
         </div>
         <div class="main-container__tools__colors">
@@ -43,13 +43,13 @@
               <input type="color" id="primary_color" name="primary" value="#010101"><label for="primary" class="input_color-label">Current color</label>
           </div>
           <div class="tools_items tool_item6" >
-            <div class="tools_indicator" id="tools_prev_color"></div><p>Prev color</p>
+            <div class="tools_indicator" id="secondary_color"></div><p>Prev color</p>
           </div>
           <div class="tools_items tool_item7">
-            <div class="tools_indicator tools_red_color"></div><p>red</p>
+            <div class="tools_indicator tools_red_color" id="red"></div><p>red</p>
           </div>
           <div class="tools_items tool_item8">
-            <div class="tools_indicator tools_blue_color"></div><p>blue</p>
+            <div class="tools_indicator tools_blue_color" id="blue"></div><p>blue</p>
           </div>
         </div>
       </div>

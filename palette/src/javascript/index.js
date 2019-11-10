@@ -7,7 +7,7 @@ class App {
       canvasSize: 32,
       primaryColor: '#010101',
       secondaryColor: '#ffffff',
-      currentTool: '',
+      currentTool: 'Pen',
     };
   }
 
@@ -23,6 +23,9 @@ class App {
 
     function addListeners() {
       const toolsConatainer = document.querySelector('.main-container__tools__pallete');
+      const colorsContainer = document.querySelector('.main-container__tools__colors');
+      const primaryColorTool = document.getElementById('primary_color');
+      const secondaryColor = document.getElementById('secondary_color');
       const canvasContainer = document.querySelector('.canvas_background');
 
       toolsConatainer.addEventListener('click', (event) => {
@@ -34,6 +37,32 @@ class App {
           }
           tools.highlight(this.currentTool);
         }
+      });
+
+      colorsContainer.addEventListener('click', (event) => {
+        let RGBcolor;
+        let HEXColor;
+        switch (event.target.id) {
+          case 'secondary_color':
+            [this.primaryColor, this.secondaryColor] = [this.secondaryColor, this.primaryColor];
+            tools.changeColors(this, primaryColorTool, secondaryColor);
+            break;
+          case 'primary_color':
+            break;
+          default:
+            this.secondaryColor = this.primaryColor;
+            RGBcolor = getComputedStyle(event.target).backgroundColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+            HEXColor = canvas.RGBToHex(+RGBcolor[1], +RGBcolor[2], +RGBcolor[3]);
+            this.primaryColor = HEXColor;
+            tools.changeColors(this, primaryColorTool, secondaryColor);
+            break;
+        }
+      });
+
+      primaryColorTool.addEventListener('change', () => {
+        this.secondaryColor = this.primaryColor;
+        this.primaryColor = primaryColorTool.value;
+        tools.changeColors(this, primaryColorTool, secondaryColor);
       });
 
       canvasContainer.addEventListener('mouseenter', () => {
