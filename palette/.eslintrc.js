@@ -15,6 +15,7 @@ module.exports = {
   rules: {
     "no-console": "off",
     "import/extensions": "off",
-    "class-methods-use-this": ["error", { "exceptMethods": ['RGBToHex', 'setImageFromLocalStorage', 'colorPickerTool'] }]
+    "class-methods-use-this": ["error", { "exceptMethods": ['RGBToHex', 'setImageFromLocalStorage', 'colorPickerTool'] }],
+    "no-bitwise": ["error", { "allow": ["<<", ">>"] }]
   },
 };

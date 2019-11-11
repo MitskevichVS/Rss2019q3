@@ -47,6 +47,7 @@ export default class Canvas {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const mouse = { x: 0, y: 0 };
+    const moveMouse = { x: 0, y: 0 };
     let draw = false;
     let leftButtonFlag = false;
     let rightButtonFlag = false;
@@ -69,14 +70,32 @@ export default class Canvas {
     const penToolMousemove = (event) => {
       this.state.currentListeners.push(['mousemove', penToolMousemove]);
       if (draw === true) {
-        mouse.x = Math.floor(event.offsetX / 16);
-        mouse.y = Math.floor(event.offsetY / 16);
         if (leftButtonFlag === true) {
           ctx.fillStyle = app.primaryColor;
         } else if (rightButtonFlag === true) {
           ctx.fillStyle = app.secondaryColor;
         }
-        ctx.fillRect(mouse.x, mouse.y, 1, 1);
+        moveMouse.x = Math.floor(event.offsetX / 16);
+        moveMouse.y = Math.floor(event.offsetY / 16);
+
+        const dx = Math.abs(mouse.x - moveMouse.x);
+        const dy = Math.abs(mouse.y - moveMouse.y);
+        const sx = (mouse.x < moveMouse.x) ? 1 : -1;
+        const sy = (mouse.y < moveMouse.y) ? 1 : -1;
+        let error = dx - dy;
+
+        while (!((mouse.x === moveMouse.x) && (mouse.y === moveMouse.y))) {
+          const e2 = error << 1;
+          if (e2 > -dy) {
+            error -= dy;
+            mouse.x += sx;
+          }
+          if (e2 < dx) {
+            error += dx;
+            mouse.y += sy;
+          }
+          ctx.fillRect(mouse.x, mouse.y, 1, 1);
+        }
       }
     };
 
