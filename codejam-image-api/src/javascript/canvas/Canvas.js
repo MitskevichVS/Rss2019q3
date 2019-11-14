@@ -15,10 +15,10 @@ export default class Canvas {
     };
   }
 
-  setResolution() {
+  setResolution(app) {
     const canvas = document.getElementById('canvas');
-    canvas.width = 32;
-    canvas.height = 32;
+    canvas.width = app.canvasSize;
+    canvas.height = app.canvasSize;
     return this;
   }
 
@@ -40,6 +40,24 @@ export default class Canvas {
     if (B.length === 1) B = `0${B}`;
 
     return `#${R}${G}${B}`;
+  }
+
+  drawImage(app) {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const image = new Image();
+    image.crossOrigin = 'Anonymous';
+    image.src = app.imageUrl;
+
+    image.onload = () => {
+      if (app.imageWidth <= app.imageHeight) {
+        ctx.drawImage(image, app.indent, 0, app.imageWidth, app.imageHeight);
+      } else {
+        ctx.drawImage(image, 0, app.indent, app.imageWidth, app.imageHeight);
+      }
+    };
+    return this;
   }
 
   penDraw(app) {

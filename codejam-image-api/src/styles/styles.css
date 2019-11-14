@@ -220,6 +220,14 @@ canvas {
   color: #7e7e7e;
 }
 
+.canvas__container__input-error {
+  border-bottom: 1px solid #b50000;
+}
+
+.canvas__container__input-confirmed {
+  border-bottom: 1px solid #00b521;
+}
+
 .canvas__container__input-range {
   -webkit-appearance: none;
   appearance: none;
