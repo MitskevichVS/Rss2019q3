@@ -72,8 +72,8 @@ export default class Canvas {
 
     const penToolMousedown = (event) => {
       this.state.currentListeners.push(['mousedown', penToolMousedown]);
-      mouse.x = Math.floor(event.offsetX / 16);
-      mouse.y = Math.floor(event.offsetY / 16);
+      mouse.x = Math.floor(event.offsetX / (512 / app.canvasSize));
+      mouse.y = Math.floor(event.offsetY / (512 / app.canvasSize));
       draw = true;
       if (event.button === 0) {
         ctx.fillStyle = app.primaryColor;
@@ -93,8 +93,8 @@ export default class Canvas {
         } else if (rightButtonFlag === true) {
           ctx.fillStyle = app.secondaryColor;
         }
-        moveMouse.x = Math.floor(event.offsetX / 16);
-        moveMouse.y = Math.floor(event.offsetY / 16);
+        moveMouse.x = Math.floor(event.offsetX / (512 / app.canvasSize));
+        moveMouse.y = Math.floor(event.offsetY / (512 / app.canvasSize));
 
         const dx = Math.abs(mouse.x - moveMouse.x);
         const dy = Math.abs(mouse.y - moveMouse.y);
@@ -119,8 +119,8 @@ export default class Canvas {
 
     const penToolMouseup = (event) => {
       this.state.currentListeners.push(['mouseup', penToolMouseup]);
-      mouse.x = Math.floor(event.offsetX / 16);
-      mouse.y = Math.floor(event.offsetY / 16);
+      mouse.x = Math.floor(event.offsetX / (512 / app.canvasSize));
+      mouse.y = Math.floor(event.offsetY / (512 / app.canvasSize));
       if (event.button === 0) {
         ctx.fillStyle = app.primaryColor;
       } else {
@@ -153,8 +153,8 @@ export default class Canvas {
 
     const eraseToolMousedown = (event) => {
       this.state.currentListeners.push(['mousedown', eraseToolMousedown]);
-      mouse.x = Math.floor(event.offsetX / 16);
-      mouse.y = Math.floor(event.offsetY / 16);
+      mouse.x = Math.floor(event.offsetX / (512 / app.canvasSize));
+      mouse.y = Math.floor(event.offsetY / (512 / app.canvasSize));
       erase = true;
       ctx.globalCompositeOperation = 'destination-out';
       ctx.fillRect(mouse.x, mouse.y, 3, 3);
@@ -163,8 +163,8 @@ export default class Canvas {
     const eraseToolMousemove = (event) => {
       this.state.currentListeners.push(['mousemove', eraseToolMousemove]);
       if (erase === true) {
-        mouse.x = Math.floor(event.offsetX / 16);
-        mouse.y = Math.floor(event.offsetY / 16);
+        mouse.x = Math.floor(event.offsetX / (512 / app.canvasSize));
+        mouse.y = Math.floor(event.offsetY / (512 / app.canvasSize));
         ctx.globalCompositeOperation = 'destination-out';
         ctx.fillRect(mouse.x, mouse.y, 3, 3);
       }
@@ -172,8 +172,8 @@ export default class Canvas {
 
     const eraseToolMouseup = (event) => {
       this.state.currentListeners.push(['mouseup', eraseToolMouseup]);
-      mouse.x = Math.floor(event.offsetX / 16);
-      mouse.y = Math.floor(event.offsetY / 16);
+      mouse.x = Math.floor(event.offsetX / (512 / app.canvasSize));
+      mouse.y = Math.floor(event.offsetY / (512 / app.canvasSize));
       ctx.globalCompositeOperation = 'destination-out';
       ctx.fillRect(mouse.x, mouse.y, 3, 3);
       ctx.globalCompositeOperation = 'source-over';
@@ -294,8 +294,8 @@ export default class Canvas {
 
     const paintBucketToolMousedown = (event) => {
       this.state.currentListeners.push(['mousedown', paintBucketToolMousedown]);
-      mouse.x = Math.floor(event.offsetX / 16);
-      mouse.y = Math.floor(event.offsetY / 16);
+      mouse.x = Math.floor(event.offsetX / (512 / app.canvasSize));
+      mouse.y = Math.floor(event.offsetY / (512 / app.canvasSize));
 
       const cnvs = ctx.getImageData(mouse.x, mouse.y, 1, 1).data;
       const R = cnvs[0];

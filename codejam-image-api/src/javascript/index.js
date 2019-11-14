@@ -184,7 +184,7 @@ class App {
     await fetch(url)
       .then(res => res.json())
       .then((data) => {
-        this.app.imageUrl = data.urls.full;
+        this.app.imageUrl = data.urls.small;
         this.calculateImageSize(data.height, data.width);
       });
     return this;
