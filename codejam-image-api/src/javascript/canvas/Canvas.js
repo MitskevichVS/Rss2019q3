@@ -6,21 +6,39 @@ export default class Canvas {
     };
   }
 
-  grayScale() {
+  showAlert() {
+    const alertMessage = document.querySelector('.canvas__container-alert');
+    alertMessage.classList.add('show-alert');
+    setTimeout(() => {
+      alertMessage.classList.remove('show-alert');
+    }, 2000);
+  }
+
+  checkEmptyCanvas() {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const { data } = imageData;
-    data.forEach((item, index) => {
-      if (index % 4 === 0) {
-        const avg = (item + data[index + 1] + data[index + 2]) / 3;
-        data[index] = avg;
-        data[index + 1] = avg;
-        data[index + 2] = avg;
-      }
-    });
-    ctx.putImageData(imageData, 0, 0);
-    return this;
+    const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    return !data.some(channel => channel !== 0);
+  }
+
+  grayScale() {
+    if (this.checkEmptyCanvas()) {
+      this.showAlert();
+    } else {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const { data } = imageData;
+      data.forEach((item, index) => {
+        if (index % 4 === 0) {
+          const avg = (item + data[index + 1] + data[index + 2]) / 3;
+          data[index] = avg;
+          data[index + 1] = avg;
+          data[index + 2] = avg;
+        }
+      });
+      ctx.putImageData(imageData, 0, 0);
+    }
   }
 
   setImageFromLocalStorage(item) {
@@ -40,7 +58,6 @@ export default class Canvas {
     canvas.width = app.canvasSize;
     canvas.height = app.canvasSize;
     this.setImageFromLocalStorage(this.state.savedImage);
-    return this;
   }
 
   removeEventListenersCanvas() {
