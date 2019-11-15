@@ -34,7 +34,8 @@ class App {
       const secondaryColor = document.getElementById('secondary_color');
       const canvasContainer = document.querySelector('.canvas_background');
       const searchButtonsContainer = document.querySelectorAll('.canvas__container')[0];
-      const dataFormInput = document.querySelector('#search__input');
+      const dataFormInput = document.getElementById('search__input');
+      const rangeSlider = document.querySelector('.canvas__container__input-range');
 
       toolsConatainer.addEventListener('click', (event) => {
         if (event.target.id || event.path[1].id) {
@@ -153,6 +154,23 @@ class App {
           default:
             break;
         }
+      });
+
+      rangeSlider.addEventListener('input', (event) => {
+        switch (event.target.value) {
+          case '0':
+            this.app.canvasSize = 128;
+            break;
+          case '4':
+            this.app.canvasSize = 256;
+            break;
+          case '8':
+            this.app.canvasSize = 512;
+            break;
+          default:
+            break;
+        }
+        canvas.setResolution(this.app);
       });
 
       return this;

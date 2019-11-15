@@ -2,23 +2,27 @@ export default class Canvas {
   constructor() {
     this.state = {
       currentListeners: [],
+      savedImage: '',
     };
   }
 
   setImageFromLocalStorage(item) {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
     const img = new Image();
     img.src = item;
     img.onload = () => {
-      ctx.drawImage(img, 0, 0);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
   }
 
   setResolution(app) {
     const canvas = document.getElementById('canvas');
+    this.state.savedImage = canvas.toDataURL();
     canvas.width = app.canvasSize;
     canvas.height = app.canvasSize;
+    this.setImageFromLocalStorage(this.state.savedImage);
     return this;
   }
 
