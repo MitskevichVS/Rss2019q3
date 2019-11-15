@@ -139,17 +139,17 @@ class App {
 
       searchButtonsContainer.addEventListener('click', (event) => {
         const inputData = dataFormInput.value;
-        if (!inputData.match(/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/g)) {
-          return;
-        }
         let url;
         switch (event.target.id) {
           case ('search__button'):
+            if (!inputData.match(/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/g)) {
+              return;
+            }
             url = `https://api.unsplash.com/photos/random?query=town,${inputData}${this.app.acessKey}`;
             this.fetchData(url);
             break;
           case ('blackWhite__button'):
-            console.log('abyr111');
+            canvas.grayScale();
             break;
           default:
             break;

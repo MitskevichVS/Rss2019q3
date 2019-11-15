@@ -6,6 +6,23 @@ export default class Canvas {
     };
   }
 
+  grayScale() {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const { data } = imageData;
+    data.forEach((item, index) => {
+      if (index % 4 === 0) {
+        const avg = (item + data[index + 1] + data[index + 2]) / 3;
+        data[index] = avg;
+        data[index + 1] = avg;
+        data[index + 2] = avg;
+      }
+    });
+    ctx.putImageData(imageData, 0, 0);
+    return this;
+  }
+
   setImageFromLocalStorage(item) {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
