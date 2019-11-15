@@ -99,10 +99,50 @@ body {
 .main-container__canvas {
   width: 100%;
   height: calc(100vh - 100px);
+  margin-top: 5vh;
   display: grid;
-  grid-template-rows: 10% 80% 10%;
+  grid-template-rows: 10% 65% 10%;
   align-items: center;
   justify-content: center;
+}
+
+.canvas__container:first-child {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: 
+    'input input search'
+    '. . bw'
+    '. . clear';
+  grid-gap: 5%;
+}
+
+#search__button {
+  grid-area: search;
+}
+
+#search__input {
+  grid-area: input;
+}
+
+#blackWhite__button {
+  grid-area: bw;
+  margin-top: 1%;
+}
+
+#clear__button {
+  grid-area: clear;
+  margin-top: 1%;
+}
+
+.canvas__container:last-child {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+}
+
+.canvas__container p {
+  text-align: center;
+  margin: 3%;
 }
 
 .main-container__tools__pallete,

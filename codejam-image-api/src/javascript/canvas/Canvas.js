@@ -6,6 +6,13 @@ export default class Canvas {
     };
   }
 
+  clearAll() {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    localStorage.setItem('canvasImage', canvas.toDataURL());
+  }
+
   showAlert() {
     const alertMessage = document.querySelector('.canvas__container-alert');
     alertMessage.classList.add('show-alert');
@@ -56,10 +63,12 @@ export default class Canvas {
 
   setResolution(app) {
     const canvas = document.getElementById('canvas');
+    const resolutionInfo = document.querySelector('.canvas__container__text-resolution');
     this.state.savedImage = canvas.toDataURL();
     canvas.width = app.canvasSize;
     canvas.height = app.canvasSize;
     this.drawSavedImage(this.state.savedImage);
+    resolutionInfo.textContent = app.canvasSize;
   }
 
   removeEventListenersCanvas() {

@@ -36,6 +36,7 @@ class App {
       const searchButtonsContainer = document.querySelectorAll('.canvas__container')[0];
       const dataFormInput = document.getElementById('search__input');
       const rangeSlider = document.querySelector('.canvas__container__input-range');
+      const clearButton = document.getElementById('clear__button');
 
       toolsConatainer.addEventListener('click', (event) => {
         if (event.target.id || event.path[1].id) {
@@ -171,6 +172,10 @@ class App {
             break;
         }
         canvas.setResolution(this.app);
+      });
+
+      clearButton.addEventListener('click', () => {
+        canvas.clearAll();
       });
 
       return this;
