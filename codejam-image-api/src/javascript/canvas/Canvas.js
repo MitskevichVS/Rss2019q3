@@ -38,10 +38,11 @@ export default class Canvas {
         }
       });
       ctx.putImageData(imageData, 0, 0);
+      localStorage.setItem('canvasImage', canvas.toDataURL());
     }
   }
 
-  setImageFromLocalStorage(item) {
+  drawSavedImage(item) {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
@@ -49,6 +50,7 @@ export default class Canvas {
     img.src = item;
     img.onload = () => {
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      localStorage.setItem('canvasImage', canvas.toDataURL());
     };
   }
 
@@ -57,7 +59,7 @@ export default class Canvas {
     this.state.savedImage = canvas.toDataURL();
     canvas.width = app.canvasSize;
     canvas.height = app.canvasSize;
-    this.setImageFromLocalStorage(this.state.savedImage);
+    this.drawSavedImage(this.state.savedImage);
   }
 
   removeEventListenersCanvas() {
@@ -94,8 +96,8 @@ export default class Canvas {
       } else {
         ctx.drawImage(image, 0, app.indent, app.imageWidth, app.imageHeight);
       }
+      localStorage.setItem('canvasImage', canvas.toDataURL());
     };
-    return this;
   }
 
   penDraw(app) {

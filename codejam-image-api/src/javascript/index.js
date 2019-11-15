@@ -24,7 +24,7 @@ class App {
     const savedImage = localStorage.getItem('canvasImage');
 
     if (savedImage) {
-      canvas.setImageFromLocalStorage(savedImage);
+      canvas.drawSavedImage(savedImage);
     }
 
     function addListeners() {
