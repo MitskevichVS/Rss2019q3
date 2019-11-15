@@ -73,6 +73,21 @@ body {
   transition: 1s;
 }
 
+.header__button-oauth {
+  margin: 0 5%;
+  width: 5%;
+  border: 0;
+  color: #7e7e7e;
+  background-color: #ffffff;
+  transition: all 0.5s linear;
+}
+
+.header__button-oauth:hover {
+  cursor: pointer;
+  color: #000000;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+
 .footer-block {
   width: 100%;
   height: 50px;
@@ -110,7 +125,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas: 
+  grid-template-areas:
     'input input search'
     '. . bw'
     '. . clear';
