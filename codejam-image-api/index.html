@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../src/styles/styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <script src="https://unpkg.com/netlify-auth-providers"></script>
   <title>Image-api</title>
 </head>
 <body>
@@ -21,7 +22,13 @@
           </div>
       </div>
       <h1>CodeJam - Image-api</h1>
+      <div class="header__container-error header__container-error-hide">
+        <p>Something goes wrong. Try again later.</p>
+      </div>
       <button class="header__button-oauth">Sign Up</button>
+      <div class="header__container-user">
+
+      </div>
       <div class="header-block__menu2">
         <a href="#"><i class="fas fa-ellipsis-v fa-2x"></i></a>
           <div class="dropdown second-menu">

@@ -1,5 +1,6 @@
 import ToolsSelection from './Tools/Tools.js';
 import Canvas from './canvas/Canvas.js';
+import authentication from './authentication/authentication.js';
 import '../styles/styles.css';
 
 const tools = new ToolsSelection();
@@ -38,6 +39,7 @@ class App {
       const dataFormInput = document.getElementById('search__input');
       const rangeSlider = document.querySelector('.canvas__container__input-range');
       const clearButton = document.getElementById('clear__button');
+      const authButton = document.querySelector('.header__button-oauth');
 
       toolsConatainer.addEventListener('click', (event) => {
         if (event.target.id || event.path[1].id) {
@@ -177,6 +179,10 @@ class App {
 
       clearButton.addEventListener('click', () => {
         canvas.clearAll();
+      });
+
+      authButton.addEventListener('click', () => {
+        authentication();
       });
 
       return this;
