@@ -1,7 +1,7 @@
 import ToolsSelection from './Tools/Tools.js';
 import Canvas from './canvas/Canvas.js';
-import authentication from './authentication/authentication.js';
-import '../styles/styles.css';
+// import authentication from './authentication/authentication.js';
+// import '../styles/styles.css';
 
 const tools = new ToolsSelection();
 const canvas = new Canvas();
@@ -68,8 +68,8 @@ class App {
         let HEXColor;
         switch (event.target.id) {
           case 'secondary_color':
-            // eslint-disable-next-line max-len
-            [this.app.primaryColor, this.app.secondaryColor] = [this.app.secondaryColor, this.app.primaryColor];
+            [this.app.primaryColor,
+              this.app.secondaryColor] = [this.app.secondaryColor, this.app.primaryColor];
             tools.changeColors(this.app, primaryColorTool, secondaryColor);
             break;
           case 'primary_color':
@@ -91,21 +91,18 @@ class App {
       });
 
       canvasContainer.addEventListener('mouseenter', () => {
+        canvas.removeEventListenersCanvas();
         switch (this.app.currentTool) {
           case 'Pen':
-            canvas.removeEventListenersCanvas();
             canvas.penDraw(this.app);
             break;
           case 'Bucket':
-            canvas.removeEventListenersCanvas();
             canvas.paintBucket(this.app);
             break;
           case 'Color':
-            canvas.removeEventListenersCanvas();
             tools.colorPickerTool();
             break;
           case 'Erase':
-            canvas.removeEventListenersCanvas();
             canvas.eraser(this.app);
             break;
           default:
@@ -114,25 +111,22 @@ class App {
       });
 
       document.addEventListener('keypress', (event) => {
+        canvas.removeEventListenersCanvas();
         switch (event.code) {
           case 'KeyB':
             this.app.currentTool = 'Bucket';
-            canvas.removeEventListenersCanvas();
             canvas.paintBucket(this.app);
             break;
           case 'KeyC':
             this.app.currentTool = 'Color';
-            canvas.removeEventListenersCanvas();
             tools.colorPickerTool();
             break;
           case 'KeyP':
             this.app.currentTool = 'Pen';
-            canvas.removeEventListenersCanvas();
             canvas.penDraw(this.app);
             break;
           case 'KeyE':
             this.app.currentTool = 'Erase';
-            canvas.removeEventListenersCanvas();
             canvas.eraser(this.app);
             break;
           default:
