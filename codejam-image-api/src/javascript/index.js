@@ -1,7 +1,7 @@
 import ToolsSelection from './Tools/Tools.js';
 import Canvas from './canvas/Canvas.js';
-// import authentication from './authentication/authentication.js';
-// import '../styles/styles.css';
+import authentication from './authentication/authentication.js';
+import '../styles/styles.css';
 
 const tools = new ToolsSelection();
 const canvas = new Canvas();
