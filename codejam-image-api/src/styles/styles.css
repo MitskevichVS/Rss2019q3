@@ -82,6 +82,10 @@ body {
   transition: all 0.5s linear;
 }
 
+.header__button-oauth-hide {
+  display: none;
+}
+
 .header__button-oauth:hover {
   cursor: pointer;
   color: #000000;
@@ -94,6 +98,27 @@ body {
 
 .header__container-error-hide {
   display: none;
+}
+
+.header__container-user {
+  display: none;
+  margin: 0 5%;
+}
+
+.header__container-user-show {
+  display: block;
+}
+
+.user__image {
+  height: 100%;
+  width: 50px;
+}
+
+.user__name {
+  display: flex;
+  line-height: 50px;
+  text-decoration: none;
+  color: #7e7e7e;
 }
 
 .footer-block {
