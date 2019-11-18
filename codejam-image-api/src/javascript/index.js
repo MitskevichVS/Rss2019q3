@@ -9,10 +9,10 @@ const canvas = new Canvas();
 class App {
   constructor() {
     this.app = {
-      canvasSize: 256,
-      primaryColor: '#010101',
-      secondaryColor: '#ffffff',
-      currentTool: 'Pen',
+      canvasSize: localStorage.getItem('canvasSize') || 256,
+      primaryColor: localStorage.getItem('primaryColor') || '#010101',
+      secondaryColor: localStorage.getItem('secondaryColor') || '#ffffff',
+      currentTool: localStorage.getItem('currentTool') || 'Pen',
       acessKey: '&client_id=715e40b83c35861ef42aec9d9d3db56b9ddd73508a4e5c9a65e9c1100fa22712',
       imageWidth: '',
       imageHeight: '',
@@ -23,6 +23,7 @@ class App {
 
   start() {
     canvas.setResolution(this.app);
+    tools.highlight(this.app.currentTool);
     const savedImage = localStorage.getItem('canvasImage');
 
     if (savedImage) {
@@ -40,6 +41,16 @@ class App {
       const rangeSlider = document.querySelector('.canvas__container__input-range');
       const clearButton = document.getElementById('clear__button');
       const authButton = document.querySelector('.header__button-oauth');
+
+      window.onbeforeunload = () => {
+        localStorage.setItem('canvasSize', this.app.canvasSize);
+        localStorage.setItem('primaryColor', this.app.primaryColor);
+        localStorage.setItem('secondaryColor', this.app.secondaryColor);
+        localStorage.setItem('currentTool', this.app.currentTool);
+      };
+
+      tools.changeColors(this.app, primaryColorTool, secondaryColor);
+      rangeSlider.value = Math.floor(this.app.canvasSize / 256);
 
       toolsConatainer.addEventListener('click', (event) => {
         if (event.target.id || event.path[1].id) {
@@ -165,10 +176,10 @@ class App {
           case '0':
             this.app.canvasSize = 128;
             break;
-          case '4':
+          case '1':
             this.app.canvasSize = 256;
             break;
-          case '8':
+          case '2':
             this.app.canvasSize = 512;
             break;
           default:
