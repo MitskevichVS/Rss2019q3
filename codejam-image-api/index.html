@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="../src/styles/styles.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="https://unpkg.com/netlify-auth-providers"></script>
   <title>Image-api</title>
 </head>
+
 <body>
   <header>
     <div class="header-block">
       <div class="header-block__menu1">
         <a href="#"><i class="fas fa-bars fa-2x"></i></a>
-          <div class="dropdown first-menu">
-            <a href="#">Menu item</a>
-            <a href="#">Menu item</a>
-            <a href="#">Menu item</a>
-          </div>
+        <div class="dropdown first-menu">
+          <a href="#">Menu item</a>
+          <a href="#">Menu item</a>
+          <a href="#">Menu item</a>
+        </div>
       </div>
       <h1>CodeJam - Image-api</h1>
       <div class="header__container-error header__container-error-hide">
@@ -28,15 +31,15 @@
       <button class="header__button-oauth">Sign Up</button>
       <div class="header__container-user user">
         <a href="#" class="user__name">
-            <img src="#" alt="user_image" class="user__image">
-            <span>1</span>
-          </a>
+          <img src="#" alt="user_image" class="user__image">
+          <span>1</span>
+        </a>
       </div>
       <div class="header-block__menu2">
         <a href="#"><i class="fas fa-ellipsis-v fa-2x"></i></a>
-          <div class="dropdown second-menu">
-            <a href="#">:)</a>
-          </div>
+        <div class="dropdown second-menu">
+          <a href="#">:)</a>
+        </div>
       </div>
     </div>
   </header>
@@ -44,23 +47,35 @@
     <div class="main-container">
       <div class="main-container__tools">
         <div class="main-container__tools__pallete">
-          <div class="tools_items tool_item1" id="Bucket"><i class="fas fa-fill-drip"></i><p>Paint bucket (B)</p></div>
-          <div class="tools_items tool_item1" id="Color"><i class="fas fa-eye-dropper"></i><p>Color picker (C)</p></div>
-          <div class="tools_items tool_item1" id="Pen"><i class="fas fa-pencil-alt"></i><p>Pencil (P)</p></div>
-          <div class="tools_items tool_item1" id="Erase"><i class="fas fa-eraser"></i><p>Erase (E)</p></div>
+          <div class="tools_items tool_item1" id="Bucket"><i class="fas fa-fill-drip"></i>
+            <p>Paint bucket (B)</p>
+          </div>
+          <div class="tools_items tool_item1" id="Color"><i class="fas fa-eye-dropper"></i>
+            <p>Color picker (C)</p>
+          </div>
+          <div class="tools_items tool_item1" id="Pen"><i class="fas fa-pencil-alt"></i>
+            <p>Pencil (P)</p>
+          </div>
+          <div class="tools_items tool_item1" id="Erase"><i class="fas fa-eraser"></i>
+            <p>Erase (E)</p>
+          </div>
         </div>
         <div class="main-container__tools__colors">
           <div class="tools_items tool_item5">
-              <input type="color" id="primary_color" name="primary" value="#010101"><label for="primary" class="input_color-label">Current color</label>
+            <input type="color" id="primary_color" name="primary" value="#010101"><label for="primary"
+              class="input_color-label">Current color</label>
           </div>
-          <div class="tools_items tool_item6" >
-            <div class="tools_indicator" id="secondary_color"></div><p>Prev color</p>
+          <div class="tools_items tool_item6">
+            <div class="tools_indicator" id="secondary_color"></div>
+            <p>Prev color</p>
           </div>
           <div class="tools_items tool_item7">
-            <div class="tools_indicator tools_red_color" id="red"></div><p>red</p>
+            <div class="tools_indicator tools_red_color" id="red"></div>
+            <p>red</p>
           </div>
           <div class="tools_items tool_item8">
-            <div class="tools_indicator tools_blue_color" id="blue"></div><p>blue</p>
+            <div class="tools_indicator tools_blue_color" id="blue"></div>
+            <p>blue</p>
           </div>
         </div>
       </div>
@@ -92,4 +107,5 @@
   </footer>
   <script src="./src/javascript/index.js" type="module"></script>
 </body>
+
 </html>
