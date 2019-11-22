@@ -14,7 +14,8 @@
 
 .header {
   width: 80%;
-  margin: 2% auto 0;
+  margin: 0% auto;
+  padding-top: 2%;
   display: grid;
   grid-template-columns: 10% 10% 10% 70%;
   grid-template-areas: 'picture list lang search';
@@ -134,6 +135,7 @@
       width: 34px;
       height: 26px;
       font-size: 12px;
+      color: #4e4e4e;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       text-align: center;

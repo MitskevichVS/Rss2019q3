@@ -57,11 +57,14 @@ const header = () => {
   input.type = 'text';
   const voiceButton = document.createElement('button');
   voiceButton.className = 'searchform__button-voice';
+  const microphone = document.createElement('i');
+  microphone.classList.add('fas', 'fa-microphone');
   const searchButton = document.createElement('button');
   searchButton.className = 'searchform__button-search';
   searchButton.textContent = 'search';
 
   searchContainer.appendChild(input);
+  voiceButton.appendChild(microphone);
   searchContainer.appendChild(voiceButton);
   searchContainer.appendChild(searchButton);
 

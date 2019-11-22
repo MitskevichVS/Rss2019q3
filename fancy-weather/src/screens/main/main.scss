@@ -1,0 +1,49 @@
+@font-face {
+  font-family:'Montserrat';
+  src: url('../assets/fonts/Montserrat Bold.eot');
+  src: url('../assets/fonts/Montserrat Bold.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Montserrat Bold.woff2') format('woff2'),
+  url('../assets/fonts/Montserrat Bold.woff') format('woff'),
+  url('../assets/fonts/Montserrat Bold.svg#Montserrat Bold') format('svg');
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: normal;
+  unicode-range: U+0020-2044;
+}
+
+@mixin coordinates-text {
+  width: 80%;
+  margin: 1% auto 0;
+  color: #ffffff;
+  text-align: end;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
+}
+
+.main {
+  width: 80%;
+  margin: 4% auto;
+  height: 50vh;
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+  &__container-right {
+    display: flex;
+    flex-direction: column;
+
+    #map {
+      margin: 0 auto;
+      width: 80%;
+      height: 100%;
+      border-radius: 5px;
+    }
+
+    &__text-latitude {
+      @include coordinates-text;
+    }
+
+    &__text-longtitude {
+      @include coordinates-text;
+    }
+  }
+}
