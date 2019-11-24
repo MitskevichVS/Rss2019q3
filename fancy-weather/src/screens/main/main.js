@@ -1,3 +1,4 @@
+import weatherIcons from '../elements/weatherIcons';
 import './main.scss';
 
 const main = () => {
@@ -48,6 +49,8 @@ const main = () => {
   const weatherIcon = document.createElement('div');
   weatherIcon.className = 'main__container-left__icon-temp';
   weatherIcon.id = 'weatherIcon';
+  const icon = weatherIcons('sunny');
+  weatherIcon.appendChild(icon);
 
   const weatherOptions = document.createElement('ul');
   weatherOptions.className = 'main__container-left__list';
