@@ -22,8 +22,8 @@
 
 .main {
   width: 80%;
-  margin: 4% auto;
-  height: 50vh;
+  margin: 6% auto;
+  height: 65vh;
   display: grid;
   grid-template-columns: 50% 50%;
 
@@ -32,7 +32,7 @@
     flex-direction: column;
 
     #map {
-      margin: 0 auto;
+      margin: 15% auto 0;
       width: 80%;
       height: 100%;
       border-radius: 5px;
@@ -45,5 +45,60 @@
     &__text-longtitude {
       @include coordinates-text;
     }
+  }
+
+  &__container-left {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 8% 7% 25% 30% 30%;
+    grid-template-areas:
+      'location location'
+      'date icon'
+      'temp icon'
+      'temp weatherList'
+    ;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+
+    &__text-location {
+      grid-area: location;
+      font-size: 2.5em;
+      margin: 0;
+      padding: 0;
+      line-height: 100%;
+      text-transform: uppercase;
+    }
+
+    &__text-date {
+      grid-area: date;
+      font-size: 1.3em;
+      margin: 0;
+      padding: 0;
+      padding-top: 2%;
+      line-height: 100%;
+    }
+
+    &__text-temperature {
+      grid-area: temp;
+      font-size: 17em;
+      margin: 0;
+      padding: 0;
+      line-height: 125%;
+    }
+
+    &__icon-temp {
+      grid-area: icon;
+
+    }
+
+    &__list {
+      grid-area: weatherList;
+      text-transform: uppercase;
+      list-style: none;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+
   }
 }

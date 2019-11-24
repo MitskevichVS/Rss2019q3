@@ -27,6 +27,66 @@ const main = () => {
   mainElement.appendChild(leftContainer);
   mainElement.appendChild(rightContainer);
 
+  const location = document.createElement('p');
+  location.className = 'main__container-left__text-location';
+  location.id = 'location';
+  // dev
+  location.textContent = 'Minsk, Belarus';
+
+  const date = document.createElement('p');
+  date.className = 'main__container-left__text-date';
+  date.id = 'date';
+  // dev
+  date.textContent = 'Mon 28 October 17:23';
+
+  const temp = document.createElement('p');
+  temp.className = 'main__container-left__text-temperature';
+  temp.id = 'temperature';
+  // dev
+  temp.textContent = '-70';
+
+  const weatherIcon = document.createElement('div');
+  weatherIcon.className = 'main__container-left__icon-temp';
+  weatherIcon.id = 'weatherIcon';
+
+  const weatherOptions = document.createElement('ul');
+  weatherOptions.className = 'main__container-left__list';
+  weatherOptions.id = 'weatherOptions';
+
+  const weatherDescription = document.createElement('li');
+  weatherDescription.className = 'main__container-left__listitem';
+  weatherDescription.id = 'weatherDescription';
+  // dev
+  weatherDescription.textContent = 'overcast';
+
+  const feelsLike = document.createElement('li');
+  feelsLike.className = 'main__container-left__listitem';
+  feelsLike.id = 'feelsLike';
+  // dev
+  feelsLike.textContent = 'fellslike 7';
+
+  const wind = document.createElement('li');
+  wind.className = 'main__container-left__listitem';
+  wind.id = 'wind';
+  // dev
+  wind.textContent = 'wind: 2 m/s';
+
+  const humidity = document.createElement('li');
+  humidity.className = 'main__container-left__listitem';
+  humidity.id = 'humidity';
+  // dev
+  humidity.textContent = 'humidity: 83%';
+
+  leftContainer.appendChild(location);
+  leftContainer.appendChild(date);
+  leftContainer.appendChild(temp);
+  leftContainer.appendChild(weatherIcon);
+  weatherOptions.appendChild(weatherDescription);
+  weatherOptions.appendChild(feelsLike);
+  weatherOptions.appendChild(wind);
+  weatherOptions.appendChild(humidity);
+  leftContainer.appendChild(weatherOptions);
+
   document.getElementsByTagName('body')[0].appendChild(mainElement);
 };
 
