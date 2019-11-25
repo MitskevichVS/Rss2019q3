@@ -37,8 +37,6 @@ const main = () => {
   const date = document.createElement('p');
   date.className = 'main__container-left__text-date';
   date.id = 'date';
-  // dev
-  date.textContent = 'Mon 28 October 17:23';
 
   const temp = document.createElement('p');
   temp.className = 'main__container-left__text-temperature';
@@ -49,6 +47,7 @@ const main = () => {
   const weatherIcon = document.createElement('div');
   weatherIcon.className = 'main__container-left__icon-temp';
   weatherIcon.id = 'weatherIcon';
+  // dev
   const icon = weatherIcons('sunny');
   weatherIcon.appendChild(icon);
 
