@@ -1,6 +1,6 @@
 import './weatherIcons.scss';
 
-const weatherIcons = (icon) => {
+const weatherIcons = (icon, id) => {
   const weatherIcon = document.createElement('div');
   weatherIcon.classList.add('icon');
 
@@ -38,43 +38,65 @@ const weatherIcons = (icon) => {
   flake.className = 'flake';
 
   switch (icon) {
-    case 'sun-shower':
-      weatherIcon.classList.add('sun-shower');
-      sun.appendChild(rays);
-      weatherIcon.appendChild(Bigcloud);
-      weatherIcon.appendChild(sun);
-      weatherIcon.appendChild(rain);
+    case 'Rain':
+    case 'Drizzle':
+      switch (id) {
+        case 500:
+        case 501:
+        case 502:
+        case 503:
+        case 504:
+          weatherIcon.classList.add('sun-shower');
+          sun.appendChild(rays);
+          weatherIcon.appendChild(Bigcloud);
+          weatherIcon.appendChild(sun);
+          weatherIcon.appendChild(rain);
+          break;
+        default:
+          weatherIcon.classList.add('rainy');
+          weatherIcon.appendChild(Bigcloud);
+          weatherIcon.appendChild(rain);
+          break;
+      }
       break;
-    case 'lighting':
+    case 'Thunderstorm':
       weatherIcon.classList.add('thunder-storm');
       lightning.appendChild(Bigbolt);
       lightning.appendChild(Litbolt);
       weatherIcon.appendChild(Bigcloud);
       weatherIcon.appendChild(lightning);
       break;
-    case 'cloudy':
-      weatherIcon.classList.add('cloudy');
-      weatherIcon.appendChild(Bigcloud);
-      weatherIcon.appendChild(Litcloud);
-      break;
-    case 'flurries':
+    case 'Snow':
       weatherIcon.classList.add('flurries');
       weatherIcon.appendChild(Bigcloud);
       snow.appendChild(Bigflake);
       snow.appendChild(flake);
       weatherIcon.appendChild(snow);
       break;
-    case 'sunny':
+    case 'Clear':
       weatherIcon.classList.add('sunny');
       sun.appendChild(rays);
       weatherIcon.appendChild(sun);
       break;
-    case 'rainy':
-      weatherIcon.classList.add('rainy');
-      weatherIcon.appendChild(Bigcloud);
-      weatherIcon.appendChild(rain);
+    case 'Clouds':
+      switch (id) {
+        case 801:
+          weatherIcon.classList.add('broken-clouds');
+          sun.appendChild(rays);
+          weatherIcon.appendChild(Bigcloud);
+          weatherIcon.appendChild(sun);
+          break;
+        default:
+          weatherIcon.classList.add('cloudy');
+          weatherIcon.appendChild(Bigcloud);
+          weatherIcon.appendChild(Litcloud);
+          break;
+      }
       break;
     default:
+      weatherIcon.classList.add('cloudy');
+      weatherIcon.appendChild(Bigcloud);
+      weatherIcon.appendChild(Litcloud);
       break;
   }
 

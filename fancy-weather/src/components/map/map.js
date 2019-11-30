@@ -1,15 +1,12 @@
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
-const showMap = () => {
-  navigator.geolocation.getCurrentPosition((position) => {
-    console.log(position);
-    console.log(position.coords.latitude, position.coords.longitude);
-  });
-
+const showMap = (latitude, longtitude) => {
+  console.log(latitude);
+  console.log(longtitude);
   mapboxgl.accessToken = 'pk.eyJ1IjoidmljbSIsImEiOiJjazM3OGptajcwM2U2M2hub3VndW85bmY0In0.YjI_4SkVRa67Odgm-yrNvg';
   const map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/light-v10',
-    center: [27.607768, 53.928879699999996],
+    center: [longtitude, latitude],
     zoom: 15.2,
     pitch: 100,
     bearing: 0,
