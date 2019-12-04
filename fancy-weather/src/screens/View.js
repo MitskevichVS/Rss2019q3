@@ -16,6 +16,11 @@ export default class View {
     return this;
   }
 
+  hideLoader() {
+    const loaderScreen = document.querySelector('.loading');
+    loaderScreen.classList.add('hide_loading');
+  }
+
   showHeader() {
     header();
     return this;
@@ -89,5 +94,18 @@ export default class View {
       listItems[index].appendChild(temp);
       listItems[index].appendChild(icon);
     });
+  }
+
+  async updateBackgroundImg(url) {
+    const container = document.querySelector('body');
+    const image = new Image();
+    image.src = url;
+
+    image.onload = () => {
+      container.style.background = `url("${url}")`;
+      container.style.backgroundSize = 'cover';
+      container.style.backgroundPosition = 'center';
+      this.hideLoader();
+    };
   }
 }

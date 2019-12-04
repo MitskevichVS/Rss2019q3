@@ -9,6 +9,7 @@ export default class App {
 
   async start() {
     this.view.connectThirdPartyLinks();
+    this.view.showLoader();
     this.view.showHeader();
     this.view.showMain();
     this.model.getDate();
@@ -16,8 +17,11 @@ export default class App {
       .then(
         await this.model.getLocationInfo(),
       ).then(
-        this.model.getWeather(),
+        await this.model.getWeather(),
       ).then(
+        await this.model.getBackgroundPhoto(),
+      )
+      .then(
         console.log('done'),
       );
     return this;

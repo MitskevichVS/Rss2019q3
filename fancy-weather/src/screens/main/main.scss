@@ -22,10 +22,13 @@
 
 .main {
   width: 80%;
-  margin: 6% auto;
+  margin: 4% auto;
+  padding: 2% 2%;
   height: 65vh;
   display: grid;
   grid-template-columns: 50% 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
 
   &__container-right {
     display: flex;

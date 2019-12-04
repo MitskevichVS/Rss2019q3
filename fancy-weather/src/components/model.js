@@ -18,6 +18,7 @@ export default class Model {
     this.zip = '';
     this.date = '';
     this.day = '';
+    this.nextDays = [];
     this.fetchedWeather = {};
     this.currentWeater = {};
     this.nextDaysWeather = [];
@@ -42,40 +43,46 @@ export default class Model {
   }
 
   async getWeather() {
-    // eslint-disable-next-line max-len
-    // const url = `${this.openWeatherUrl}q=${this.location}&units=${this.units}&appid=${this.openWeatherKey}`;
-    /* await fetch(url)
+    const url = `${this.openWeatherUrl}q=${this.location}&units=${this.units}&appid=${this.openWeatherKey}`;
+    await fetch(url)
       .then(data => data.json())
       .then((weatherData) => {
-        localStorage.setItem('weather', JSON.stringify(weatherData));
-      }); */
-    this.fetchedWeather = JSON.parse(localStorage.getItem('weather'));
-    this.fetchedWeather = this.fetchedWeather.list;
-    [, this.currentWeater] = this.fetchedWeather;
-    this.currentWeater = sortWeatherData(this.currentWeater);
-    this.nextDaysWeather = [
-      sortWeatherData(this.fetchedWeather[9]),
-      sortWeatherData(this.fetchedWeather[17]),
-      sortWeatherData(this.fetchedWeather[25]),
-    ];
-    console.log(this.currentWeater);
-    console.log(this.nextDaysWeather);
-    this.view.updateMainWeatherInfo(this.currentWeater);
+        this.fetchedWeather = weatherData.list;
+        [, this.currentWeater] = this.fetchedWeather;
+        this.currentWeater = sortWeatherData(this.currentWeater);
+        this.nextDaysWeather = [
+          sortWeatherData(this.fetchedWeather[9]),
+          sortWeatherData(this.fetchedWeather[17]),
+          sortWeatherData(this.fetchedWeather[25]),
+        ];
+        this.view.updateMainWeatherInfo(this.currentWeater);
+        this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
+      });
   }
 
   getDate() {
     const date = new Date();
-    const weekday = convertDay(date.getDay());
+    const weekday = convertDay(date.getDay()).slice(0, 3);
     const month = convertMonth(date.getMonth());
+    this.day = date.getDay();
+    this.days = [
+      convertDay(this.day + 1),
+      convertDay(this.day + 2),
+      convertDay(this.day + 3)];
 
     this.date = `${weekday} ${date.getDate()} ${month} ${date.getHours()}:${date.getMinutes()}`;
 
     this.view.updateDate(this.date);
   }
 
-  async getBackgroundPhoto(town) {
-    const url = `${this.photoUrl}town,${town}&client_id=${this.photoKey}`;
-    console.log(url);
+  async getBackgroundPhoto() {
+    const [city] = this.location.split(',');
+    const url = `${this.photoUrl}town,${city}&client_id=${this.photoKey}`;
+    await fetch(url)
+      .then(data => data.json())
+      .then((imgData) => {
+        this.view.updateBackgroundImg(imgData.urls.raw);
+      });
   }
 
   showLocation() {
