@@ -13,6 +13,8 @@ export default class App {
     this.view.showHeader();
     this.view.showMain();
     this.model.getDate();
+    this.view.hideLoader();
+    console.log(navigator.connection.downlink);
     await this.model.getCoordinates()
       .then(await this.model.getLocationInfo())
       .then(await this.model.getWeather())

@@ -16,12 +16,12 @@ const languageData = {
     humidity: 'humidity',
   },
   BY: {
-    searchButton: '',
-    latitude: '',
-    longtitude: '',
-    pressure: '',
-    wind: '',
-    humidity: '',
+    searchButton: 'Знайсці',
+    latitude: 'Шырата',
+    longtitude: 'Даўгата',
+    pressure: 'Атм. ціск',
+    wind: 'Вецер',
+    humidity: 'Вільготнасць',
   },
 };
 

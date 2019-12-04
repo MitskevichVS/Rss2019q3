@@ -1,6 +1,9 @@
 import showMap from './map/map';
 import {
-  convertCoordinates, convertDay, convertMonth, sortWeatherData,
+  convertCoordinates,
+  convertDay,
+  convertMonth,
+  sortWeatherData,
 } from './utils/utils';
 
 export default class Model {
@@ -12,7 +15,7 @@ export default class Model {
     this.photoKey = '715e40b83c35861ef42aec9d9d3db56b9ddd73508a4e5c9a65e9c1100fa22712';
     this.photoUrl = 'https://api.unsplash.com/photos/random?query=';
     this.units = 'metric';
-    this.language = 'en';
+    this.language = 'EN';
     this.longtitude = '';
     this.convertedLongtitude = '';
     this.latitude = '';
@@ -50,7 +53,6 @@ export default class Model {
     await fetch(url)
       .then(data => data.json())
       .then((weatherData) => {
-        console.log(weatherData);
         this.fetchedWeather = weatherData.list;
         [, this.currentWeater] = this.fetchedWeather;
         this.currentWeater = sortWeatherData(this.currentWeater);
@@ -66,15 +68,27 @@ export default class Model {
 
   getDate() {
     const date = new Date();
-    const weekday = convertDay(date.getDay()).slice(0, 3);
-    const month = convertMonth(date.getMonth());
+    let weekday = convertDay(date.getDay())[this.language];
+    const month = convertMonth(date.getMonth())[this.language];
     this.day = date.getDay();
-    this.days = [
-      convertDay(this.day + 1),
-      convertDay(this.day + 2),
-      convertDay(this.day + 3)];
+    const hours = date.getHours();
+    let minutes = date.getMinutes();
 
-    this.date = `${weekday} ${date.getDate()} ${month} ${date.getHours()}:${date.getMinutes()}`;
+    if (this.language === 'EN') {
+      weekday = weekday.slice(0, 3);
+    }
+
+    if (minutes.length === 1) {
+      minutes = `0${minutes}`;
+    }
+
+    this.days = [
+      convertDay(this.day + 1)[this.language],
+      convertDay(this.day + 2)[this.language],
+      convertDay(this.day + 3)[this.language],
+    ];
+
+    this.date = `${weekday} ${date.getDate()} ${month} ${hours}:${minutes}`;
 
     this.view.updateDate(this.date);
   }
@@ -94,7 +108,6 @@ export default class Model {
     this.convertedLongtitude = convertCoordinates(this.longtitude);
     showMap(this.latitude, this.longtitude);
     this.view.showCoordinatesOnPage(this.convertedLatitude, this.convertedLongtitude);
-    return this;
   }
 
   changeLanguage(lang) {
@@ -103,5 +116,6 @@ export default class Model {
     this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
     this.view.updateLocation(this.location);
     this.view.showCoordinatesOnPage(this.convertedLatitude, this.convertedLongtitude);
+    this.getDate();
   }
 }

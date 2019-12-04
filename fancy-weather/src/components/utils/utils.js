@@ -11,27 +11,27 @@ const convertDay = (day) => {
   switch (day) {
     case 0:
     case 7:
-      weekday = 'Sunday';
+      weekday = { EN: 'Sunday', RU: 'Воскресенье', BY: 'Нядзеля' };
       break;
     case 1:
     case 8:
-      weekday = 'Monday';
+      weekday = { EN: 'Monday', RU: 'Понедельник', BY: 'Панядзелак' };
       break;
     case 2:
     case 9:
-      weekday = 'Tuesday';
+      weekday = { EN: 'Tuesday', RU: 'Вторник', BY: 'Аўторак' };
       break;
     case 3:
-      weekday = 'Wednesday';
+      weekday = { EN: 'Wednesday', RU: 'Среда', BY: 'Серада' };
       break;
     case 4:
-      weekday = 'Thursday';
+      weekday = { EN: 'Thursday', RU: 'Четверг', BY: 'Чацьвер' };
       break;
     case 5:
-      weekday = 'Friday';
+      weekday = { EN: 'Friday', RU: 'Пятница', BY: 'Пятніца' };
       break;
     case 6:
-      weekday = 'Saturday';
+      weekday = { EN: 'Saturday', RU: 'Суббота', BY: 'Cубота' };
       break;
     default:
       break;
@@ -43,40 +43,40 @@ const convertMonth = (month) => {
   let monthName;
   switch (month) {
     case 0:
-      monthName = 'January';
+      monthName = { EN: 'January', RU: 'Январь', BY: 'Студзень' };
       break;
     case 1:
-      monthName = 'February';
+      monthName = { EN: 'FebRUary', RU: 'Февраль', BY: 'Люты' };
       break;
     case 2:
-      monthName = 'March';
+      monthName = { EN: 'March', RU: 'Март', BY: 'Сакавік' };
       break;
     case 3:
-      monthName = 'April';
+      monthName = { EN: 'April', RU: 'Апрель', BY: 'Красавік' };
       break;
     case 4:
-      monthName = 'May';
+      monthName = { EN: 'May', RU: 'Май', BY: 'Май' };
       break;
     case 5:
-      monthName = 'June';
+      monthName = { EN: 'June', RU: 'Июнь', BY: 'Чэрвень' };
       break;
     case 6:
-      monthName = 'July';
+      monthName = { EN: 'July', RU: 'Июль', BY: 'Ліпень' };
       break;
     case 7:
-      monthName = 'August';
+      monthName = { EN: 'August', RU: 'Август', BY: 'Жнівень' };
       break;
     case 8:
-      monthName = 'September';
+      monthName = { EN: 'September', RU: 'Сентябрь', BY: 'Верасень' };
       break;
     case 9:
-      monthName = 'October';
+      monthName = { EN: 'October', RU: 'Октябрь', BY: 'Кастрычнік' };
       break;
     case 10:
-      monthName = 'November';
+      monthName = { EN: 'November', RU: 'Ноябрь', BY: 'Лістапад' };
       break;
     case 11:
-      monthName = 'December';
+      monthName = { EN: 'December', RU: 'Декабрь', BY: 'Снежань' };
       break;
     default:
       break;
@@ -86,7 +86,6 @@ const convertMonth = (month) => {
 
 const sortWeatherData = (inputData) => {
   const data = inputData;
-  console.log(data);
   const weatherData = {};
 
   weatherData.description = data.weather[0].description;
@@ -101,5 +100,8 @@ const sortWeatherData = (inputData) => {
 };
 
 export {
-  convertCoordinates, convertDay, convertMonth, sortWeatherData,
+  convertCoordinates,
+  convertDay,
+  convertMonth,
+  sortWeatherData,
 };
