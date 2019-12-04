@@ -1,3 +1,5 @@
+import { rgbToHex } from '../utils/color_utils.js';
+
 export default class Canvas {
   constructor() {
     this.state = {
@@ -71,17 +73,7 @@ export default class Canvas {
     this.state.currentListeners.length = 0;
   }
 
-  RGBToHex(r, g, b) {
-    let R = r.toString(16);
-    let G = g.toString(16);
-    let B = b.toString(16);
 
-    if (R.length === 1) R = `0${R}`;
-    if (G.length === 1) G = `0${G}`;
-    if (B.length === 1) B = `0${B}`;
-
-    return `#${R}${G}${B}`;
-  }
 
   drawImage(imageSrc, width, height) {
     let imageWidth = this.size;
@@ -139,7 +131,7 @@ export default class Canvas {
     }
   }
 
-  penDraw(app) {
+  penDraw(app, primaryColor, secondaryColor) {
     this.removeEventListenersCanvas();
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -155,10 +147,10 @@ export default class Canvas {
       mouse.y = Math.floor(event.offsetY / (512 / app.canvasSize));
       draw = true;
       if (event.button === 0) {
-        ctx.fillStyle = app.primaryColor;
+        ctx.fillStyle = primaryColor;
         leftButtonFlag = true;
       } else {
-        ctx.fillStyle = app.secondaryColor;
+        ctx.fillStyle = secondaryColor;
         rightButtonFlag = true;
       }
       ctx.fillRect(mouse.x, mouse.y, 1, 1);
@@ -168,9 +160,9 @@ export default class Canvas {
       this.state.currentListeners.push(['mousemove', penToolMousemove]);
       if (draw === true) {
         if (leftButtonFlag === true) {
-          ctx.fillStyle = app.primaryColor;
+          ctx.fillStyle = primaryColor;
         } else if (rightButtonFlag === true) {
-          ctx.fillStyle = app.secondaryColor;
+          ctx.fillStyle = secondaryColor;
         }
         moveMouse.x = Math.floor(event.offsetX / (512 / app.canvasSize));
         moveMouse.y = Math.floor(event.offsetY / (512 / app.canvasSize));
@@ -201,9 +193,9 @@ export default class Canvas {
       mouse.x = Math.floor(event.offsetX / (512 / app.canvasSize));
       mouse.y = Math.floor(event.offsetY / (512 / app.canvasSize));
       if (event.button === 0) {
-        ctx.fillStyle = app.primaryColor;
+        ctx.fillStyle = primaryColor;
       } else {
-        ctx.fillStyle = app.secondaryColor;
+        ctx.fillStyle = secondaryColor;
       }
       ctx.fillRect(mouse.x, mouse.y, 1, 1);
       draw = false;
@@ -382,7 +374,7 @@ export default class Canvas {
       const G = cnvs[2];
       const A = cnvs[3];
 
-      const clickedColor = this.RGBToHex(R, G, B);
+      const clickedColor = rgbToHex(R, G, B);
       let targetColor;
 
       if (event.button === 0) {

@@ -4,33 +4,31 @@ import authentication from './authentication/authentication.js';
 import '../styles/styles.css';
 import { saveState } from './store.js';
 
-const tools = new ToolsSelection();
+const tools = new Tools();
 const canvas = new Canvas();
 
 class App {
   constructor() {
     this.app = {
       canvasSize: localStorage.getItem('canvasSize') || 256,
-      primaryColor: localStorage.getItem('primaryColor') || '#010101',
-      secondaryColor: localStorage.getItem('secondaryColor') || '#ffffff',
       currentTool: localStorage.getItem('currentTool') || 'Pen',
       acessKey: '&client_id=715e40b83c35861ef42aec9d9d3db56b9ddd73508a4e5c9a65e9c1100fa22712',
     };
   }
 
-  start() {
+  restoreState() {
     canvas.setResolution(this.app.canvasSize);
     canvas.redrawImage();
 
     tools.highlight(this.app.currentTool);
+    tools.changeColors(this.app.primaryColor);
+  }
 
-    
+  start() {
+    this.restoreState();
 
     function addListeners() {
       const toolsConatainer = document.querySelector('.main-container__tools__pallete');
-      const colorsContainer = document.querySelector('.main-container__tools__colors');
-      const primaryColorTool = document.getElementById('primary_color');
-      const secondaryColor = document.getElementById('secondary_color');
       const canvasContainer = document.querySelector('.canvas_background');
       const searchButtonsContainer = document.querySelectorAll('.canvas__container')[0];
       const dataFormInput = document.getElementById('search__input');
@@ -40,7 +38,7 @@ class App {
 
       window.onbeforeunload = () => saveState(this.app);
 
-      tools.changeColors(this.app, primaryColorTool, secondaryColor);
+      
       rangeSlider.value = Math.floor(this.app.canvasSize / 256);
 
       toolsConatainer.addEventListener('click', (event) => {
@@ -54,38 +52,11 @@ class App {
         }
       });
 
-      colorsContainer.addEventListener('click', (event) => {
-        let RGBcolor;
-        let HEXColor;
-        switch (event.target.id) {
-          case 'secondary_color':
-            [this.app.primaryColor,
-              this.app.secondaryColor] = [this.app.secondaryColor, this.app.primaryColor];
-            tools.changeColors(this.app, primaryColorTool, secondaryColor);
-            break;
-          case 'primary_color':
-            break;
-          default:
-            this.app.secondaryColor = this.app.primaryColor;
-            RGBcolor = getComputedStyle(event.target).backgroundColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-            HEXColor = canvas.RGBToHex(+RGBcolor[1], +RGBcolor[2], +RGBcolor[3]);
-            this.app.primaryColor = HEXColor;
-            tools.changeColors(this.app, primaryColorTool, secondaryColor);
-            break;
-        }
-      });
-
-      primaryColorTool.addEventListener('change', () => {
-        this.app.secondaryColor = this.app.primaryColor;
-        this.app.primaryColor = primaryColorTool.value;
-        tools.changeColors(this.app, primaryColorTool, secondaryColor);
-      });
-
       canvasContainer.addEventListener('mouseenter', () => {
         canvas.removeEventListenersCanvas();
         switch (this.app.currentTool) {
           case 'Pen':
-            canvas.penDraw(this.app);
+            canvas.penDraw(this.app, tools.primaryColor, tools.secondaryColor);
             break;
           case 'Bucket':
             canvas.paintBucket(this.app);
@@ -114,7 +85,7 @@ class App {
             break;
           case 'KeyP':
             this.app.currentTool = 'Pen';
-            canvas.penDraw(this.app);
+            canvas.penDraw(this.app, tools.primaryColor, tools.secondaryColor);
             break;
           case 'KeyE':
             this.app.currentTool = 'Erase';
