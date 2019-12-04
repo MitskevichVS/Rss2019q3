@@ -19,11 +19,9 @@ export default class View {
   hideLoader() {
     const loaderScreen = document.querySelector('.loading');
     loaderScreen.classList.add('hide_loading');
-  }
-
-  disableLoader() {
-    const loaderScreen = document.querySelector('.loading');
-    loaderScreen.classList.add('disable-loading');
+    setTimeout(() => {
+      loaderScreen.classList.add('disable-loading');
+    }, 1000);
   }
 
   showHeader() {
@@ -111,9 +109,6 @@ export default class View {
       container.style.backgroundSize = 'cover';
       container.style.backgroundPosition = 'center';
       this.hideLoader();
-      setTimeout(() => {
-        this.disableLoader();
-      }, 1000);
     };
   }
 }
