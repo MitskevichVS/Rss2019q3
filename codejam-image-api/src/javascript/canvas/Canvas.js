@@ -4,6 +4,8 @@ export default class Canvas {
       currentListeners: [],
       savedImage: '',
     };
+    this.canvas = document.getElementById('canvas');
+    this.size = 128;
   }
 
   clearAll() {
@@ -49,26 +51,16 @@ export default class Canvas {
     }
   }
 
-  drawSavedImage(item) {
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = false;
-    const img = new Image();
-    img.src = item;
-    img.onload = () => {
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      localStorage.setItem('canvasImage', canvas.toDataURL());
-    };
+  setResolution(resolution) {
+    this.size = resolution;
+    this.canvas.width = resolution;
+    this.canvas.height = resolution;
+    this.updateResolutionInfo(resolution);
   }
 
-  setResolution(app) {
-    const canvas = document.getElementById('canvas');
+  updateResolutionInfo(resolution) {
     const resolutionInfo = document.querySelector('.canvas__container__text-resolution');
-    this.state.savedImage = canvas.toDataURL();
-    canvas.width = app.canvasSize;
-    canvas.height = app.canvasSize;
-    this.drawSavedImage(this.state.savedImage);
-    resolutionInfo.textContent = app.canvasSize;
+    resolutionInfo.textContent = resolution;
   }
 
   removeEventListenersCanvas() {
@@ -91,22 +83,60 @@ export default class Canvas {
     return `#${R}${G}${B}`;
   }
 
-  drawImage(app) {
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
+  drawImage(imageSrc, width, height) {
+    let imageWidth = this.size;
+    let imageHeight = this.size;
+    let imageIndent = 0;
+
+    if (width && height && width !== height) {
+      const size = this.adjustImageSize(width, height);
+      ({ imageWidth, imageHeight, imageIndent } = size);
+    }
+
+    const ctx = this.canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
 
     const image = new Image();
     image.crossOrigin = 'Anonymous';
-    image.src = app.imageUrl;
+    image.src = imageSrc;
 
     image.onload = () => {
-      if (app.imageWidth <= app.imageHeight) {
-        ctx.drawImage(image, app.indent, 0, app.imageWidth, app.imageHeight);
+      if (imageWidth <= imageHeight) {
+        ctx.drawImage(image, imageIndent, 0, imageWidth, imageHeight);
       } else {
-        ctx.drawImage(image, 0, app.indent, app.imageWidth, app.imageHeight);
+        ctx.drawImage(image, 0, imageIndent, imageWidth, imageHeight);
       }
-      localStorage.setItem('canvasImage', canvas.toDataURL());
+      localStorage.setItem('canvasImage', this.canvas.toDataURL());
     };
+  }
+
+  adjustImageSize(width, height) {
+    let imageWidth;
+    let imageHeight;
+    let imageIndent;
+
+    if (height >= width) {
+      imageWidth = Math.round((width * this.size) / height);
+      imageHeight = this.size;
+      imageIndent = Math.round((this.size - imageWidth) / 2);
+    } else {
+      imageWidth = this.size;
+      imageHeight = Math.round((height * this.size) / width);
+      imageIndent = Math.round((this.size - imageHeight) / 2);
+    }
+
+    return {
+      imageWidth,
+      imageHeight,
+      imageIndent,
+    };
+  }
+
+  redrawImage() {
+    const savedImage = localStorage.getItem('canvasImage');
+    if (savedImage) {
+      canvas.drawImage(savedImage);
+    }
   }
 
   penDraw(app) {

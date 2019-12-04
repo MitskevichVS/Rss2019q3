@@ -2,6 +2,7 @@ import ToolsSelection from './Tools/Tools.js';
 import Canvas from './canvas/Canvas.js';
 import authentication from './authentication/authentication.js';
 import '../styles/styles.css';
+import { saveState } from './store.js';
 
 const tools = new ToolsSelection();
 const canvas = new Canvas();
@@ -14,21 +15,16 @@ class App {
       secondaryColor: localStorage.getItem('secondaryColor') || '#ffffff',
       currentTool: localStorage.getItem('currentTool') || 'Pen',
       acessKey: '&client_id=715e40b83c35861ef42aec9d9d3db56b9ddd73508a4e5c9a65e9c1100fa22712',
-      imageWidth: '',
-      imageHeight: '',
-      imageUrl: '',
-      indent: '',
     };
   }
 
   start() {
-    canvas.setResolution(this.app);
-    tools.highlight(this.app.currentTool);
-    const savedImage = localStorage.getItem('canvasImage');
+    canvas.setResolution(this.app.canvasSize);
+    canvas.redrawImage();
 
-    if (savedImage) {
-      canvas.drawSavedImage(savedImage);
-    }
+    tools.highlight(this.app.currentTool);
+
+    
 
     function addListeners() {
       const toolsConatainer = document.querySelector('.main-container__tools__pallete');
@@ -42,12 +38,7 @@ class App {
       const clearButton = document.getElementById('clear__button');
       const authButton = document.querySelector('.header__button-oauth');
 
-      window.onbeforeunload = () => {
-        localStorage.setItem('canvasSize', this.app.canvasSize);
-        localStorage.setItem('primaryColor', this.app.primaryColor);
-        localStorage.setItem('secondaryColor', this.app.secondaryColor);
-        localStorage.setItem('currentTool', this.app.currentTool);
-      };
+      window.onbeforeunload = () => saveState(this.app);
 
       tools.changeColors(this.app, primaryColorTool, secondaryColor);
       rangeSlider.value = Math.floor(this.app.canvasSize / 256);
@@ -166,20 +157,9 @@ class App {
       });
 
       rangeSlider.addEventListener('input', (event) => {
-        switch (event.target.value) {
-          case '0':
-            this.app.canvasSize = 128;
-            break;
-          case '1':
-            this.app.canvasSize = 256;
-            break;
-          case '2':
-            this.app.canvasSize = 512;
-            break;
-          default:
-            break;
-        }
-        canvas.setResolution(this.app);
+        this.app.canvasSize = +event.target.value || 128;
+        canvas.setResolution(this.app.canvasSize);
+        canvas.redrawImage();
       });
 
       clearButton.addEventListener('click', () => {
@@ -197,30 +177,11 @@ class App {
     return this;
   }
 
-  calculateIndent(value) {
-    this.app.indent = Math.round((this.app.canvasSize - value) / 2);
-    canvas.drawImage(this.app);
-  }
-
-  calculateImageSize(height, width) {
-    if (height >= width) {
-      this.app.imageHeight = this.app.canvasSize;
-      this.app.imageWidth = Math.round((width * this.app.imageHeight) / height);
-      this.calculateIndent(this.app.imageWidth);
-    } else {
-      this.app.imageWidth = this.app.canvasSize;
-      this.app.imageHeight = Math.round((height * this.app.imageWidth) / width);
-      this.calculateIndent(this.app.imageHeight);
-    }
-    return this;
-  }
-
   async fetchData(url) {
     await fetch(url)
       .then(res => res.json())
       .then((data) => {
-        this.app.imageUrl = data.urls.small;
-        this.calculateImageSize(data.height, data.width);
+        canvas.drawImage(data.urls.small, data.width, data.height);
       });
     return this;
   }
