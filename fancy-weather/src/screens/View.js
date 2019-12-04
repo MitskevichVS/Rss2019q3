@@ -3,7 +3,6 @@ import head from './head/head';
 import header from './header/header';
 import main from './main/main';
 import weatherIcons from './elements/weatherIcons';
-// import {  setWeatherData } from './utils/utils';
 import './page.scss';
 
 export default class View {
@@ -60,11 +59,35 @@ export default class View {
     const weatherIcon = weatherIcons(data.type, data.weatherId);
     console.log(weatherIcon);
 
-    temp.textContent = data.temp;
+    temp.textContent = `${data.temp}°`;
     description.textContent = data.description;
-    pressure.textContent = `Pressure: ${data.pressure}`;
-    wind.textContent = `Wind: ${data.windSpeed}`;
-    humidity.textContent = `Humidity: ${data.humidity}`;
+    pressure.textContent = `Pressure: ${data.pressure} gPa`;
+    wind.textContent = `Wind: ${data.windSpeed} m/s`;
+    humidity.textContent = `Humidity: ${data.humidity}%`;
     icon.appendChild(weatherIcon);
+  }
+
+  updateNextWeatherInfo(weather, days) {
+    const list = document.querySelector('.main__container-left__list-bottom');
+    const listItems = list.childNodes;
+
+    weather.forEach((item, index) => {
+      console.log(item);
+      const day = document.createElement('h5');
+      day.className = 'listItem__header';
+      day.textContent = days[index];
+
+      const temp = document.createElement('p');
+      temp.className = 'listItem__text';
+      temp.textContent = `${item.temp}°`;
+
+      const icon = document.createElement('div');
+      icon.className = 'listItem__icon';
+      icon.appendChild(weatherIcons(item.weatherId));
+
+      listItems[index].appendChild(day);
+      listItems[index].appendChild(temp);
+      listItems[index].appendChild(icon);
+    });
   }
 }

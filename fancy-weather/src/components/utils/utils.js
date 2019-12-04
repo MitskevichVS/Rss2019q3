@@ -10,25 +10,28 @@ const convertDay = (day) => {
   let weekday;
   switch (day) {
     case 0:
-      weekday = 'Sun';
+    case 7:
+      weekday = 'Sunday';
       break;
     case 1:
-      weekday = 'Mon';
+    case 8:
+      weekday = 'Monday';
       break;
     case 2:
-      weekday = 'Tue';
+    case 9:
+      weekday = 'Tuesday';
       break;
     case 3:
-      weekday = 'Wed';
+      weekday = 'Wednesday';
       break;
     case 4:
-      weekday = 'Thu';
+      weekday = 'Thursday';
       break;
     case 5:
-      weekday = 'Fri';
+      weekday = 'Friday';
       break;
     case 6:
-      weekday = 'Sat';
+      weekday = 'Saturday';
       break;
     default:
       break;

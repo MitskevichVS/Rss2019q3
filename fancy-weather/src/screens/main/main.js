@@ -63,6 +63,22 @@ const main = () => {
   humidity.className = 'main__container-left__listitem';
   humidity.id = 'humidity';
 
+  const nextWeatherList = document.createElement('ul');
+  nextWeatherList.className = 'main__container-left__list-bottom';
+
+  const tomorrow = document.createElement('li');
+  tomorrow.className = 'main__container-left__listItem';
+
+  const tomorrowNext = document.createElement('li');
+  tomorrowNext.className = 'main__container-left__listItem';
+
+  const tomorrowNext2 = document.createElement('li');
+  tomorrowNext2.className = 'main__container-left__listItem';
+  nextWeatherList.appendChild(tomorrow);
+  nextWeatherList.appendChild(tomorrowNext);
+  nextWeatherList.appendChild(tomorrowNext2);
+
+
   leftContainer.appendChild(location);
   leftContainer.appendChild(date);
   leftContainer.appendChild(temp);
@@ -72,6 +88,7 @@ const main = () => {
   weatherOptions.appendChild(wind);
   weatherOptions.appendChild(humidity);
   leftContainer.appendChild(weatherOptions);
+  leftContainer.appendChild(nextWeatherList);
 
   document.getElementsByTagName('body')[0].appendChild(mainElement);
 };
