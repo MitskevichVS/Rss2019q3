@@ -12,8 +12,11 @@ export default class Model {
     this.photoKey = '715e40b83c35861ef42aec9d9d3db56b9ddd73508a4e5c9a65e9c1100fa22712';
     this.photoUrl = 'https://api.unsplash.com/photos/random?query=';
     this.units = 'metric';
+    this.language = 'en';
     this.longtitude = '';
+    this.convertedLongtitude = '';
     this.latitude = '';
+    this.convertedLatitude = '';
     this.location = '';
     this.zip = '';
     this.date = '';
@@ -43,10 +46,11 @@ export default class Model {
   }
 
   async getWeather() {
-    const url = `${this.openWeatherUrl}q=${this.location}&units=${this.units}&appid=${this.openWeatherKey}`;
+    const url = `${this.openWeatherUrl}q=${this.location}&units=${this.units}&appid=${this.openWeatherKey}&lang=${this.language}`;
     await fetch(url)
       .then(data => data.json())
       .then((weatherData) => {
+        console.log(weatherData);
         this.fetchedWeather = weatherData.list;
         [, this.currentWeater] = this.fetchedWeather;
         this.currentWeater = sortWeatherData(this.currentWeater);
@@ -55,7 +59,7 @@ export default class Model {
           sortWeatherData(this.fetchedWeather[17]),
           sortWeatherData(this.fetchedWeather[25]),
         ];
-        this.view.updateMainWeatherInfo(this.currentWeater);
+        this.view.updateMainWeatherInfo(this.currentWeater, this.language);
         this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
       });
   }
@@ -86,10 +90,18 @@ export default class Model {
   }
 
   showLocation() {
-    const latitude = convertCoordinates(this.latitude);
-    const longtitude = convertCoordinates(this.longtitude);
+    this.convertedLatitude = convertCoordinates(this.latitude);
+    this.convertedLongtitude = convertCoordinates(this.longtitude);
     showMap(this.latitude, this.longtitude);
-    this.view.showCoordinatesOnPage(latitude, longtitude);
+    this.view.showCoordinatesOnPage(this.convertedLatitude, this.convertedLongtitude);
     return this;
+  }
+
+  changeLanguage(lang) {
+    this.language = lang;
+    this.view.updateMainWeatherInfo(this.currentWeater, this.language);
+    this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
+    this.view.updateLocation(this.location);
+    this.view.showCoordinatesOnPage(this.convertedLatitude, this.convertedLongtitude);
   }
 }

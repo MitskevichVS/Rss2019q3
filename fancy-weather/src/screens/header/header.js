@@ -8,6 +8,7 @@ const header = () => {
   imageButtonContainer.className = 'header__button';
   const imageButton = document.createElement('button');
   imageButton.className = 'button';
+  imageButton.id = 'imageButton';
   const arrow = document.createElement('i');
   arrow.classList.add('fas', 'fa-sync-alt');
 
@@ -18,6 +19,7 @@ const header = () => {
   const listContainer = document.createElement('div');
   listContainer.className = 'header__list';
   const select = document.createElement('select');
+  select.id = 'languageSelect';
   const langArray = ['EN', 'RU', 'BY'];
 
   langArray.forEach((item) => {
@@ -35,6 +37,7 @@ const header = () => {
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
   checkbox.className = 'checkbox';
+  checkbox.id = 'units';
   const knob = document.createElement('div');
   knob.className = 'knobs';
   const celsius = document.createElement('span');

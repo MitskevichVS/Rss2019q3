@@ -3,17 +3,25 @@ import head from './head/head';
 import header from './header/header';
 import main from './main/main';
 import weatherIcons from './elements/weatherIcons';
+import languageData from '../components/utils/languageData';
 import './page.scss';
 
 export default class View {
+  constructor() {
+    this.languageConfig = languageData.EN;
+  }
+
+  changeLanguageConfig(lang) {
+    this.languageConfig = languageData[lang];
+    console.log(this);
+  }
+
   connectThirdPartyLinks() {
     head();
-    return this;
   }
 
   showLoader() {
     loader();
-    return this;
   }
 
   hideLoader() {
@@ -26,20 +34,32 @@ export default class View {
 
   showHeader() {
     header();
-    return this;
   }
 
   showMain() {
     main();
-    return this;
+  }
+
+  changeScale(target) {
+    const targetEl = target;
+    targetEl.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+      targetEl.style.transform = 'scale(1)';
+    }, 200);
+  }
+
+  setBlurToBackground() {
+    const body = document.querySelector('body');
+
+    body.className = 'blur';
   }
 
   showCoordinatesOnPage(latitude, longtitude) {
     const latitudeElement = document.getElementById('latitude');
     const longtitudeElement = document.getElementById('longtitude');
 
-    latitudeElement.textContent = `Latitude: ${latitude}`;
-    longtitudeElement.textContent = `Longtitude: ${longtitude}`;
+    latitudeElement.textContent = `${this.languageConfig.latitude}: ${latitude}`;
+    longtitudeElement.textContent = `${this.languageConfig.longtitude}: ${longtitude}`;
   }
 
   updateDate(currentDate) {
@@ -59,19 +79,22 @@ export default class View {
     const temp = document.getElementById('temperature');
     const icon = document.getElementById('weatherIcon');
     const description = document.getElementById('weatherDescription');
-    console.log(description);
     const pressure = document.getElementById('feelsLike');
     const wind = document.getElementById('wind');
     const humidity = document.getElementById('humidity');
 
     const weatherIcon = weatherIcons(data.type, data.weatherId);
-    console.log(weatherIcon);
 
     temp.textContent = `${data.temp}°`;
     description.textContent = data.description;
-    pressure.textContent = `Pressure: ${data.pressure} gPa`;
-    wind.textContent = `Wind: ${data.windSpeed} m/s`;
-    humidity.textContent = `Humidity: ${data.humidity}%`;
+    pressure.textContent = `${this.languageConfig.pressure}: ${data.pressure} gPa`;
+    wind.textContent = `${this.languageConfig.wind}: ${data.windSpeed} m/s`;
+    humidity.textContent = `${this.languageConfig.humidity}: ${data.humidity}%`;
+    if (icon.childNodes) {
+      while (icon.firstChild) {
+        icon.removeChild(icon.firstChild);
+      }
+    }
     icon.appendChild(weatherIcon);
   }
 
@@ -80,7 +103,11 @@ export default class View {
     const listItems = list.childNodes;
 
     weather.forEach((item, index) => {
-      console.log(item);
+      if (listItems[index].childNodes) {
+        while (listItems[index].firstChild) {
+          listItems[index].removeChild(listItems[index].firstChild);
+        }
+      }
       const day = document.createElement('h5');
       day.className = 'listItem__header';
       day.textContent = days[index];
@@ -108,6 +135,7 @@ export default class View {
       container.style.background = `url("${url}")`;
       container.style.backgroundSize = 'cover';
       container.style.backgroundPosition = 'center';
+      container.classList.remove('blur');
       this.hideLoader();
     };
   }

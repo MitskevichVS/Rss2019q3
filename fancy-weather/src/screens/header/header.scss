@@ -33,6 +33,8 @@
       background-position: 50% 50%;
       outline: none;
       color: #ffffff;
+      scale: 1;
+      transition: all 0.2s ease-in;
 
       &:hover {
         cursor: pointer;
