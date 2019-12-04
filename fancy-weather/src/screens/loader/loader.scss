@@ -11,8 +11,11 @@
 	text-align: $text-align;
 }
 
-.hide_loading {
-  z-index: 0;
+body .hide_loading {
+  opacity: 0;
+}
+
+.disable-loading {
   display: none;
 }
 
@@ -23,7 +26,8 @@
 	width: 100%;
 	height: 100%;
 	background: #ffffff;
-	z-index: 9999;
+  z-index: 9999;
+  transition: opacity 1s ease-out;
 }
 
 

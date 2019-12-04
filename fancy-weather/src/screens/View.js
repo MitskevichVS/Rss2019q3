@@ -21,6 +21,11 @@ export default class View {
     loaderScreen.classList.add('hide_loading');
   }
 
+  disableLoader() {
+    const loaderScreen = document.querySelector('.loading');
+    loaderScreen.classList.add('disable-loading');
+  }
+
   showHeader() {
     header();
     return this;
@@ -106,6 +111,9 @@ export default class View {
       container.style.backgroundSize = 'cover';
       container.style.backgroundPosition = 'center';
       this.hideLoader();
+      setTimeout(() => {
+        this.disableLoader();
+      }, 1000);
     };
   }
 }
