@@ -5,7 +5,7 @@ const showMap = (latitude, longtitude) => {
   const map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/light-v10',
     center: [longtitude, latitude],
-    zoom: 15.2,
+    zoom: 11.2,
     pitch: 100,
     bearing: 0,
     container: 'map',

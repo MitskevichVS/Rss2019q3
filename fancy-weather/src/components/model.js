@@ -83,6 +83,8 @@ export default class Model {
             const { city = this.city, country } = locationData.results[0].components;
             this.receivedTimeZone = locationData.results[0].annotations.timezone.name;
             this.location = `${city}, ${country}`;
+            this.ddLatitude = locationData.results[0].geometry.lat;
+            this.ddLongtitude = locationData.results[0].geometry.lng;
             this.view.updateLocation(this.location);
             console.log(this.receivedTimeZone);
             break;
