@@ -199,6 +199,10 @@
       background-clip: padding-box;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
+
+      &-error {
+        background-color: rgba(121, 78, 78, 0.6);
+      }
     }
 
     .searchform__button-voice {

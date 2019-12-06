@@ -55,28 +55,43 @@ export default class Model {
     return [this.ddLatitude, this.ddLongtitude];
   }
 
-  async getLocationFromOpenCage(from, city) {
+  async getLocationFromOpenCage(from) {
     let url;
     switch (from) {
       case 'coordinates':
         url = `${this.openCageService}&${this.openCageKey}&q=${this.ddLatitude},${this.ddLongtitude}&language=${this.language.toLowerCase()}`;
         break;
       case 'city':
-        this.city = city;
         url = `${this.openCageService}&${this.openCageKey}&q=${this.city}&language=${this.language.toLowerCase()}`;
         break;
       default:
         break;
     }
+    console.log([url]);
     await fetch(url)
       .then(data => data.json())
       .then((locationData) => {
         console.log(locationData);
-        if (this.language === 'EN') {
-          this.city = `${locationData.results[0].components.city}`;
+        switch (from) {
+          case 'coordinates':
+            if (this.language === 'EN') {
+              this.city = `${locationData.results[0].components.city}`;
+            }
+            this.location = `${locationData.results[0].components.city}, ${locationData.results[0].components.country}`;
+            this.view.updateLocation(this.location);
+            break;
+          default: {
+            console.log(locationData.results[0].components);
+            /* if (locationData.results[0].components.city !== undefined) {
+              this.city = `${locationData.results[0].city}`;
+            } */
+            const { city = this.city, country } = locationData.results[0].components;
+            // const city = locationData.results[0].components.city || this.city;
+            this.location = `${city}, ${country}`;
+            this.view.updateLocation(this.location);
+            break;
+          }
         }
-        this.location = `${locationData.results[0].components.city}, ${locationData.results[0].components.country}`;
-        this.view.updateLocation(this.location);
       });
   }
 
@@ -147,6 +162,8 @@ export default class Model {
 
   changeLanguage(lang) {
     this.language = lang;
+    console.log(`change lang ${this}`);
+    console.log(this);
     this.view.updateMainWeatherInfo(this.currentWeater, this.units);
     this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
     // this.view.updateLocation(this.location);
@@ -157,5 +174,19 @@ export default class Model {
 
   changeUnits(units) {
     this.units = units;
+  }
+
+  checkCitynameInputValue(value) {
+    const template = new RegExp(/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/g);
+    if (!value.match(template)) {
+      this.view.showErrorOnCitynameInput();
+      return false;
+    }
+    this.view.removeErrorOnCitynameInput();
+    return true;
+  }
+
+  setCityFromSearch(city) {
+    this.city = city;
   }
 }

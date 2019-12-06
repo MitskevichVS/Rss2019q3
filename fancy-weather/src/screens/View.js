@@ -10,6 +10,7 @@ import './page.scss';
 export default class View {
   constructor() {
     this.languageConfig = languageData.EN;
+    this.cityNameInput = document.querySelector('.searchform__input');
   }
 
   changeLanguageConfig(lang) {
@@ -39,6 +40,7 @@ export default class View {
 
   showMain() {
     main();
+    this.cityNameInput = document.querySelector('.searchform__input');
   }
 
   changeScale(target) {
@@ -146,5 +148,13 @@ export default class View {
     const button = document.querySelector('.searchform__button-search');
 
     button.textContent = `${this.languageConfig.searchButton}`;
+  }
+
+  showErrorOnCitynameInput() {
+    this.cityNameInput.classList.add('searchform__input-error');
+  }
+
+  removeErrorOnCitynameInput() {
+    this.cityNameInput.classList.remove('searchform__input-error');
   }
 }

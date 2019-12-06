@@ -30,9 +30,9 @@ export default class App {
     const langSelect = document.querySelector('#languageSelect');
     const unitsSwitch = document.querySelector('#units');
 
-    // const searchButtonByCity = document.querySelector('.searchform__input');
+    const searchButtonByCity = document.querySelector('.searchform__button-search');
     // const voiceControlButton = document.querySelector('.searchform__button-voice');
-    // const cityNameInput = document.querySelector('.searchform__input');
+    const cityNameInput = document.querySelector('.searchform__input');
 
     backgroundButton.addEventListener('click', async (event) => {
       if (!event.target.id) {
@@ -48,7 +48,7 @@ export default class App {
       this.view.changeLanguageConfig(event.target.value);
       this.model.changeLanguage(event.target.value);
       this.model.getWeather();
-      this.model.getLocationFromOpenCage('coordinates');
+      this.model.getLocationFromOpenCage('city');
     });
 
     unitsSwitch.addEventListener('change', async (event) => {
@@ -63,6 +63,21 @@ export default class App {
       await this.model.getWeather();
     });
 
-    
+    searchButtonByCity.addEventListener('click', async () => {
+      const inputValue = cityNameInput.value;
+
+      if (!this.model.checkCitynameInputValue(inputValue)) {
+        return;
+      }
+
+      this.model.setCityFromSearch(inputValue);
+      await this.model.getLocationFromOpenCage('city')
+        .then(this.model.getWeather());
+    });
+
+    cityNameInput.addEventListener('input', (event) => {
+      const inputValue = event.target.value;
+      this.model.checkCitynameInputValue(inputValue);
+    });
   }
 }
