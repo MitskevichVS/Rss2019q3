@@ -20,7 +20,7 @@ const header = () => {
   listContainer.className = 'header__list';
   const select = document.createElement('select');
   select.id = 'languageSelect';
-  const langArray = ['EN', 'RU', 'BY'];
+  const langArray = ['EN', 'RU', 'BE'];
 
   langArray.forEach((item) => {
     const option = document.createElement('option');

@@ -15,7 +15,7 @@ const languageData = {
     wind: 'wind',
     humidity: 'humidity',
   },
-  BY: {
+  BE: {
     searchButton: 'Знайсці',
     latitude: 'Шырата',
     longtitude: 'Даўгата',

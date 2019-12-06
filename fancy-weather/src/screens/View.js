@@ -4,6 +4,7 @@ import header from './header/header';
 import main from './main/main';
 import weatherIcons from './elements/weatherIcons';
 import languageData from '../components/utils/languageData';
+import { getWindSpeedUnits } from '../components/utils/utils';
 import './page.scss';
 
 export default class View {
@@ -74,7 +75,7 @@ export default class View {
     locationEl.textContent = locationName;
   }
 
-  updateMainWeatherInfo(currentWeather) {
+  updateMainWeatherInfo(currentWeather, units) {
     const data = currentWeather;
     const temp = document.getElementById('temperature');
     const icon = document.getElementById('weatherIcon');
@@ -84,11 +85,12 @@ export default class View {
     const humidity = document.getElementById('humidity');
 
     const weatherIcon = weatherIcons(data.type, data.weatherId);
+    console.log(getWindSpeedUnits(units));
 
     temp.textContent = `${data.temp}°`;
     description.textContent = data.description;
-    pressure.textContent = `${this.languageConfig.pressure}: ${data.pressure} gPa`;
-    wind.textContent = `${this.languageConfig.wind}: ${data.windSpeed} m/s`;
+    pressure.textContent = `${this.languageConfig.pressure}: ${data.pressure} hPa`;
+    wind.textContent = `${this.languageConfig.wind}: ${data.windSpeed} ${getWindSpeedUnits(units)}`;
     humidity.textContent = `${this.languageConfig.humidity}: ${data.humidity}%`;
     if (icon.childNodes) {
       while (icon.firstChild) {
@@ -138,5 +140,11 @@ export default class View {
       container.classList.remove('blur');
       this.hideLoader();
     };
+  }
+
+  changeSearchButtonLanguage() {
+    const button = document.querySelector('.searchform__button-search');
+
+    button.textContent = `${this.languageConfig.searchButton}`;
   }
 }

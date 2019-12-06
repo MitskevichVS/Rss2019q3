@@ -26,7 +26,7 @@
   padding: 2% 2%;
   height: 65vh;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 5fr 5fr;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 15px;
   filter: blur(0);
@@ -53,8 +53,8 @@
 
   &__container-left {
     display: grid;
-    grid-template-columns: 60% 40%;
-    grid-template-rows: 8% 7% 25% 30% 30%;
+    grid-template-columns: 6fr 4fr;
+    grid-template-rows: 8fr 7fr 25fr 30fr 30fr;
     grid-template-areas:
       'location location'
       'date icon'
@@ -114,8 +114,8 @@
 
     &__listItem {
       display: grid;
-      grid-template-columns: 40% 60%;
-      grid-template-rows: 30% 70%;
+      grid-template-columns: 40fr 60fr;
+      grid-template-rows: 30fr 70fr;
       grid-template-areas: 'day day' 'temp icon';
 
       .listItem__header {

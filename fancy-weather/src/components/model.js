@@ -14,14 +14,16 @@ export default class Model {
     this.openWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?';
     this.photoKey = '715e40b83c35861ef42aec9d9d3db56b9ddd73508a4e5c9a65e9c1100fa22712';
     this.photoUrl = 'https://api.unsplash.com/photos/random?query=';
+    this.openCageService = 'https://api.opencagedata.com/geocode/v1/json?';
+    this.openCageKey = 'key=34b53ec7436b4c5dad3675a2f577dace';
     this.units = 'metric';
     this.language = 'EN';
-    this.longtitude = '';
-    this.convertedLongtitude = '';
-    this.latitude = '';
-    this.convertedLatitude = '';
+    this.ddLongtitude = '';
+    this.ddLatitude = '';
+    this.dmsLongtitude = '';
+    this.dmsLatitude = '';
     this.location = '';
-    this.zip = '';
+    this.city = '';
     this.date = '';
     this.day = '';
     this.nextDays = [];
@@ -30,29 +32,62 @@ export default class Model {
     this.nextDaysWeather = [];
   }
 
-  async getCoordinates() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.longtitude = position.coords.longitude;
-      this.latitude = position.coords.latitude;
+  async getAccurateCoordinates() {
+    navigator.geolocation.watchPosition((position) => {
+      this.ddLongtitude = position.coords.longitude.toString().slice(0, 9);
+      this.ddLatitude = position.coords.latitude.toString().slice(0, 9);
+      console.log(`${this.ddLongtitude}, ${this.ddLatitude}`);
       this.showLocation();
     });
   }
 
-  async getLocationInfo() {
+  async getLocationInfoByIp() {
     await fetch(this.locationUrl)
       .then(data => data.json())
       .then((locationData) => {
+        console.log(locationData);
+        this.ddLatitude = locationData.lat;
+        this.ddLongtitude = locationData.lon;
+        this.city = locationData.city;
         this.location = `${locationData.city}, ${locationData.country}`;
-        this.zip = locationData.zip;
+        this.view.updateLocation(this.location);
+      });
+    return [this.ddLatitude, this.ddLongtitude];
+  }
+
+  async getLocationFromOpenCage(from, city) {
+    let url;
+    switch (from) {
+      case 'coordinates':
+        url = `${this.openCageService}&${this.openCageKey}&q=${this.ddLatitude},${this.ddLongtitude}&language=${this.language.toLowerCase()}`;
+        break;
+      case 'city':
+        this.city = city;
+        url = `${this.openCageService}&${this.openCageKey}&q=${this.city}&language=${this.language.toLowerCase()}`;
+        break;
+      default:
+        break;
+    }
+    await fetch(url)
+      .then(data => data.json())
+      .then((locationData) => {
+        console.log(locationData);
+        if (this.language === 'EN') {
+          this.city = `${locationData.results[0].components.city}`;
+        }
+        this.location = `${locationData.results[0].components.city}, ${locationData.results[0].components.country}`;
         this.view.updateLocation(this.location);
       });
   }
 
   async getWeather() {
-    const url = `${this.openWeatherUrl}q=${this.location}&units=${this.units}&appid=${this.openWeatherKey}&lang=${this.language}`;
+    const url = `${this.openWeatherUrl}q=${this.city}&units=${this.units}&appid=${this.openWeatherKey}&lang=${this.language.toLowerCase()}`;
+    console.log(this);
+    console.log([url]);
     await fetch(url)
       .then(data => data.json())
       .then((weatherData) => {
+        console.log(weatherData);
         this.fetchedWeather = weatherData.list;
         [, this.currentWeater] = this.fetchedWeather;
         this.currentWeater = sortWeatherData(this.currentWeater);
@@ -61,7 +96,7 @@ export default class Model {
           sortWeatherData(this.fetchedWeather[17]),
           sortWeatherData(this.fetchedWeather[25]),
         ];
-        this.view.updateMainWeatherInfo(this.currentWeater, this.language);
+        this.view.updateMainWeatherInfo(this.currentWeater, this.units);
         this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
       });
   }
@@ -78,7 +113,7 @@ export default class Model {
       weekday = weekday.slice(0, 3);
     }
 
-    if (minutes.length === 1) {
+    if (minutes.toString().length === 1) {
       minutes = `0${minutes}`;
     }
 
@@ -104,18 +139,23 @@ export default class Model {
   }
 
   showLocation() {
-    this.convertedLatitude = convertCoordinates(this.latitude);
-    this.convertedLongtitude = convertCoordinates(this.longtitude);
-    showMap(this.latitude, this.longtitude);
-    this.view.showCoordinatesOnPage(this.convertedLatitude, this.convertedLongtitude);
+    this.dmsLatitude = convertCoordinates(this.ddLatitude);
+    this.dmsLongtitude = convertCoordinates(this.ddLongtitude);
+    showMap(this.ddLatitude, this.ddLongtitude);
+    this.view.showCoordinatesOnPage(this.dmsLatitude, this.dmsLongtitude);
   }
 
   changeLanguage(lang) {
     this.language = lang;
-    this.view.updateMainWeatherInfo(this.currentWeater, this.language);
+    this.view.updateMainWeatherInfo(this.currentWeater, this.units);
     this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
-    this.view.updateLocation(this.location);
-    this.view.showCoordinatesOnPage(this.convertedLatitude, this.convertedLongtitude);
+    // this.view.updateLocation(this.location);
+    this.view.showCoordinatesOnPage(this.dmsLatitude, this.dmsLongtitude);
     this.getDate();
+    this.view.changeSearchButtonLanguage();
+  }
+
+  changeUnits(units) {
+    this.units = units;
   }
 }

@@ -15,13 +15,14 @@ export default class App {
     this.model.getDate();
     this.view.hideLoader();
     console.log(navigator.connection.downlink);
-    await this.model.getCoordinates()
-      .then(await this.model.getLocationInfo())
+    await this.model.getAccurateCoordinates()
+      .then(await this.model.getLocationInfoByIp())
       .then(await this.model.getWeather())
-      .then(await this.model.getBackgroundPhoto())
+      .then(await this.model.getLocationFromOpenCage('coordinates'))
+      // .then(this.model.getBackgroundPhoto())
       // .then(this.view.hideLoader())
-      .then(console.log('done'));
-    this.addEventListeners();
+      .then(console.log('done'))
+      .then(this.addEventListeners());
   }
 
   addEventListeners() {
@@ -41,19 +42,27 @@ export default class App {
       }
       this.view.setBlurToBackground();
       await this.model.getBackgroundPhoto();
-      console.log(event.target);
-      console.log('change background');
     });
 
     langSelect.addEventListener('change', (event) => {
-      console.log(event.target.value);
       this.view.changeLanguageConfig(event.target.value);
       this.model.changeLanguage(event.target.value);
       this.model.getWeather();
+      this.model.getLocationFromOpenCage('coordinates');
     });
 
-    unitsSwitch.addEventListener('change', (event) => {
-      console.log(event.target.checked);
+    unitsSwitch.addEventListener('change', async (event) => {
+      const switchValue = event.target.checked;
+      let units;
+      if (switchValue) {
+        units = 'imperial';
+      } else {
+        units = 'metric';
+      }
+      this.model.changeUnits(units);
+      await this.model.getWeather();
     });
+
+    
   }
 }

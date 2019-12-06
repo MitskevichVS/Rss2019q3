@@ -11,27 +11,27 @@ const convertDay = (day) => {
   switch (day) {
     case 0:
     case 7:
-      weekday = { EN: 'Sunday', RU: 'Воскресенье', BY: 'Нядзеля' };
+      weekday = { EN: 'Sunday', RU: 'Воскресенье', BE: 'Нядзеля' };
       break;
     case 1:
     case 8:
-      weekday = { EN: 'Monday', RU: 'Понедельник', BY: 'Панядзелак' };
+      weekday = { EN: 'Monday', RU: 'Понедельник', BE: 'Панядзелак' };
       break;
     case 2:
     case 9:
-      weekday = { EN: 'Tuesday', RU: 'Вторник', BY: 'Аўторак' };
+      weekday = { EN: 'Tuesday', RU: 'Вторник', BE: 'Аўторак' };
       break;
     case 3:
-      weekday = { EN: 'Wednesday', RU: 'Среда', BY: 'Серада' };
+      weekday = { EN: 'Wednesday', RU: 'Среда', BE: 'Серада' };
       break;
     case 4:
-      weekday = { EN: 'Thursday', RU: 'Четверг', BY: 'Чацьвер' };
+      weekday = { EN: 'Thursday', RU: 'Четверг', BE: 'Чацьвер' };
       break;
     case 5:
-      weekday = { EN: 'Friday', RU: 'Пятница', BY: 'Пятніца' };
+      weekday = { EN: 'Friday', RU: 'Пятница', BE: 'Пятніца' };
       break;
     case 6:
-      weekday = { EN: 'Saturday', RU: 'Суббота', BY: 'Cубота' };
+      weekday = { EN: 'Saturday', RU: 'Суббота', BE: 'Cубота' };
       break;
     default:
       break;
@@ -43,40 +43,40 @@ const convertMonth = (month) => {
   let monthName;
   switch (month) {
     case 0:
-      monthName = { EN: 'January', RU: 'Январь', BY: 'Студзень' };
+      monthName = { EN: 'January', RU: 'Января', BE: 'Студзеня' };
       break;
     case 1:
-      monthName = { EN: 'FebRUary', RU: 'Февраль', BY: 'Люты' };
+      monthName = { EN: 'February', RU: 'Февраля', BE: 'Лютага' };
       break;
     case 2:
-      monthName = { EN: 'March', RU: 'Март', BY: 'Сакавік' };
+      monthName = { EN: 'March', RU: 'Марта', BE: 'Сакавіка' };
       break;
     case 3:
-      monthName = { EN: 'April', RU: 'Апрель', BY: 'Красавік' };
+      monthName = { EN: 'April', RU: 'Апреля', BE: 'Красавіка' };
       break;
     case 4:
-      monthName = { EN: 'May', RU: 'Май', BY: 'Май' };
+      monthName = { EN: 'May', RU: 'Мая', BE: 'Мая' };
       break;
     case 5:
-      monthName = { EN: 'June', RU: 'Июнь', BY: 'Чэрвень' };
+      monthName = { EN: 'June', RU: 'Июня', BE: 'Чэрвеня' };
       break;
     case 6:
-      monthName = { EN: 'July', RU: 'Июль', BY: 'Ліпень' };
+      monthName = { EN: 'July', RU: 'Июля', BE: 'Ліпеня' };
       break;
     case 7:
-      monthName = { EN: 'August', RU: 'Август', BY: 'Жнівень' };
+      monthName = { EN: 'August', RU: 'Августа', BE: 'Жніўня' };
       break;
     case 8:
-      monthName = { EN: 'September', RU: 'Сентябрь', BY: 'Верасень' };
+      monthName = { EN: 'September', RU: 'Сентября', BE: 'Верасня' };
       break;
     case 9:
-      monthName = { EN: 'October', RU: 'Октябрь', BY: 'Кастрычнік' };
+      monthName = { EN: 'October', RU: 'Октября', BE: 'Кастрычніка' };
       break;
     case 10:
-      monthName = { EN: 'November', RU: 'Ноябрь', BY: 'Лістапад' };
+      monthName = { EN: 'November', RU: 'Ноября', BE: 'Лістапада' };
       break;
     case 11:
-      monthName = { EN: 'December', RU: 'Декабрь', BY: 'Снежань' };
+      monthName = { EN: 'December', RU: 'Декабря', BE: 'Снежня' };
       break;
     default:
       break;
@@ -99,9 +99,23 @@ const sortWeatherData = (inputData) => {
   return weatherData;
 };
 
+const getWindSpeedUnits = (units) => {
+  let windSpeedUnit;
+  switch (units) {
+    case 'metric':
+      windSpeedUnit = 'm/s';
+      break;
+    default:
+      windSpeedUnit = 'mph';
+      break;
+  }
+  return windSpeedUnit;
+};
+
 export {
   convertCoordinates,
   convertDay,
   convertMonth,
   sortWeatherData,
+  getWindSpeedUnits,
 };
