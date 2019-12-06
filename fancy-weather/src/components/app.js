@@ -71,8 +71,9 @@ export default class App {
       }
 
       this.model.setCityFromSearch(inputValue);
-      await this.model.getLocationFromOpenCage('city')
-        .then(this.model.getWeather());
+      await this.model.getLocationFromOpenCage('city');
+      await this.model.getDateByRequest();
+      await this.model.getWeather();
     });
 
     cityNameInput.addEventListener('input', (event) => {
