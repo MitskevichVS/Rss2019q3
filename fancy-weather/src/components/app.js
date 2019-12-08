@@ -31,7 +31,7 @@ export default class App {
     const unitsSwitch = document.querySelector('#units');
 
     const searchButtonByCity = document.querySelector('.searchform__button-search');
-    // const voiceControlButton = document.querySelector('.searchform__button-voice');
+    const voiceControlButton = document.querySelector('.searchform__button-voice');
     const cityNameInput = document.querySelector('.searchform__input');
 
     backgroundButton.addEventListener('click', async (event) => {
@@ -75,6 +75,10 @@ export default class App {
       await this.model.getDateByRequest();
       await this.model.showLocation();
       await this.model.getWeather();
+    });
+
+    voiceControlButton.addEventListener('click', async () => {
+      this.model.speechRecognition();
     });
 
     cityNameInput.addEventListener('input', (event) => {

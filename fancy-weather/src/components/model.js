@@ -208,4 +208,26 @@ export default class Model {
   setCityFromSearch(city) {
     this.city = city;
   }
+
+  speechRecognition() {
+    let result;
+    const recognition = new (window.speechRecognition
+      || window.webkitSpeechRecognition
+      || window.mozSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 5;
+    recognition.start();
+
+    recognition.onresult = async (event) => {
+      result = event.results[0][0].transcript;
+      console.log(result);
+      this.view.showSpeechResultOnPage(result);
+      this.setCityFromSearch(result);
+      await this.getLocationFromOpenCage('city');
+      await this.getDateByRequest();
+      this.showLocation();
+      await this.getWeather();
+    };
+  }
 }

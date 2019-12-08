@@ -157,4 +157,8 @@ export default class View {
   removeErrorOnCitynameInput() {
     this.cityNameInput.classList.remove('searchform__input-error');
   }
+
+  showSpeechResultOnPage(result) {
+    this.cityNameInput.value = result;
+  }
 }
