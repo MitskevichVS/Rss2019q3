@@ -87,7 +87,6 @@ export default class View {
     const humidity = document.getElementById('humidity');
 
     const weatherIcon = weatherIcons(data.type, data.weatherId);
-    console.log(getWindSpeedUnits(units));
 
     temp.textContent = `${data.temp}°`;
     description.textContent = data.description;

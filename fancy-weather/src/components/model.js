@@ -35,11 +35,11 @@ export default class Model {
   }
 
   async getAccurateCoordinates() {
-    navigator.geolocation.watchPosition((position) => {
+    navigator.geolocation.getCurrentPosition((position) => {
       this.ddLongtitude = position.coords.longitude.toString().slice(0, 9);
       this.ddLatitude = position.coords.latitude.toString().slice(0, 9);
       this.showLocation();
-    });
+    }, (error) => { console.log(error); }, { timeout: 2000 });
   }
 
   async getLocationInfoByIp() {
@@ -70,7 +70,6 @@ export default class Model {
     await fetch(url)
       .then(data => data.json())
       .then((locationData) => {
-        console.log(locationData);
         switch (from) {
           case 'coordinates':
             if (this.language === 'EN') {
@@ -86,7 +85,6 @@ export default class Model {
             this.ddLatitude = locationData.results[0].geometry.lat;
             this.ddLongtitude = locationData.results[0].geometry.lng;
             this.view.updateLocation(this.location);
-            console.log(this.receivedTimeZone);
             break;
           }
         }
@@ -181,11 +179,8 @@ export default class Model {
 
   changeLanguage(lang) {
     this.language = lang;
-    console.log(`change lang ${this}`);
-    console.log(this);
     this.view.updateMainWeatherInfo(this.currentWeater, this.units);
     this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
-    // this.view.updateLocation(this.location);
     this.view.showCoordinatesOnPage(this.dmsLatitude, this.dmsLongtitude);
     this.getDate();
     this.view.changeSearchButtonLanguage();
@@ -221,7 +216,6 @@ export default class Model {
 
     recognition.onresult = async (event) => {
       result = event.results[0][0].transcript;
-      console.log(result);
       this.view.showSpeechResultOnPage(result);
       this.setCityFromSearch(result);
       await this.getLocationFromOpenCage('city');
