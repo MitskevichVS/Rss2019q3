@@ -1,0 +1,31 @@
+@media screen and (max-width: 1000px) {
+  .main {
+    width: 90%;
+    margin: 4% auto;
+    padding: 2% 2%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    filter: blur(0);
+
+    &__container-right {
+      display: flex;
+      flex-direction: column;
+
+      #map {
+        margin: 2% auto 0;
+        width: 90%;
+        height: 350px;
+      }
+  }
+
+    &__container-left {
+
+      &__text-location {
+        font-size: 4vw;
+      }
+    }
+  }
+}

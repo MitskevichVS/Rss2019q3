@@ -1,4 +1,4 @@
-import './main.scss';
+import './style/main.scss';
 
 const main = () => {
   const mainElement = document.createElement('main');

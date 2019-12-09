@@ -1,10 +1,10 @@
 @font-face {
   font-family:'Montserrat';
-  src: url('../assets/fonts/Montserrat Bold.eot');
-  src: url('../assets/fonts/Montserrat Bold.eot?#iefix') format('embedded-opentype'),
-  url('../assets/fonts/Montserrat Bold.woff2') format('woff2'),
-  url('../assets/fonts/Montserrat Bold.woff') format('woff'),
-  url('../assets/fonts/Montserrat Bold.svg#Montserrat Bold') format('svg');
+  src: url('../../assets/fonts/Montserrat Bold.eot');
+  src: url('../../assets/fonts/Montserrat Bold.eot?#iefix') format('embedded-opentype'),
+  url('../../assets/fonts/Montserrat Bold.woff2') format('woff2'),
+  url('../../assets/fonts/Montserrat Bold.woff') format('woff'),
+  url('../../assets/fonts/Montserrat Bold.svg#Montserrat Bold') format('svg');
   font-weight: 700;
   font-style: normal;
   font-stretch: normal;
@@ -24,7 +24,7 @@
   width: 80%;
   margin: 4% auto;
   padding: 2% 2%;
-  height: 65vh;
+  height: 70vh;
   display: grid;
   grid-template-columns: 5fr 5fr;
   background-color: rgba(0, 0, 0, 0.5);
@@ -38,7 +38,7 @@
     #map {
       margin: 15% auto 0;
       width: 80%;
-      height: 100%;
+      height: 40vh;
       border-radius: 5px;
     }
 
@@ -52,9 +52,10 @@
   }
 
   &__container-left {
+    position: relative;
     display: grid;
     grid-template-columns: 6fr 4fr;
-    grid-template-rows: 8fr 7fr 25fr 30fr 30fr;
+    grid-template-rows: 1fr 2fr 3fr 3fr 4fr;
     grid-template-areas:
       'location location'
       'date icon'
@@ -67,29 +68,31 @@
 
     &__text-location {
       grid-area: location;
-      font-size: 2.5em;
+      position: absolute;
+      width: 77vw;
+      font-size: 3vw;
       margin: 0;
       padding: 0;
-      line-height: 100%;
+      line-height: 5vh;
       text-transform: uppercase;
     }
 
     &__text-date {
       grid-area: date;
-      font-size: 1.3em;
+      font-size: 2vw;
       margin: 0;
       padding: 0;
       padding-top: 2%;
-      line-height: 100%;
+      line-height: 3vh;
     }
 
     &__text-temperature {
       grid-area: temp;
       text-align: center;
-      font-size: 17em;
+      font-size: 14em;
       margin: 0;
       padding: 0;
-      line-height: 125%;
+      line-height: 30vh;
     }
 
     &__icon-temp {
@@ -110,12 +113,14 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       list-style-type: none;
+      padding: 0;
+      margin: 0;
     }
 
     &__listItem {
       display: grid;
-      grid-template-columns: 40fr 60fr;
-      grid-template-rows: 30fr 70fr;
+      grid-template-columns: 4fr 6fr;
+      grid-template-rows: 3fr 7fr;
       grid-template-areas: 'day day' 'temp icon';
 
       .listItem__header {
@@ -130,7 +135,7 @@
         font-size: 4em;
         margin: 0;
         padding: 0;
-        line-height: 125%;
+        line-height: 12vh;
         text-align: end;
       }
 
@@ -143,3 +148,7 @@
     }
   }
 }
+
+@import './main1000px.scss';
+@import './main768px.scss';
+@import './main500px.scss';
