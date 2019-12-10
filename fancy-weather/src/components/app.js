@@ -10,18 +10,13 @@ export default class App {
   async start() {
     this.view.connectThirdPartyLinks();
     this.view.showLoader();
-    this.view.showHeader();
-    this.view.showMain();
+    this.view.showPage();
     this.model.getDate();
-    this.view.hideLoader();
-    console.log(navigator.connection.downlink);
     await this.model.getAccurateCoordinates()
       .then(await this.model.getLocationInfoByIp())
       .then(await this.model.getWeather())
       .then(await this.model.getLocationFromOpenCage('coordinates'))
-      // .then(this.model.getBackgroundPhoto())
-      // .then(this.view.hideLoader())
-      .then(console.log('done'))
+      .then(this.model.getBackgroundPhoto())
       .then(this.addEventListeners());
   }
 

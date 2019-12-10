@@ -10,6 +10,7 @@ describe('sortWeatherData ', () => {
     windSpeed: 3.6,
     humidity: 88,
     pressure: 982,
+    weather: 'Clouds',
   };
 
   it('Should be an instance of Function', () => {

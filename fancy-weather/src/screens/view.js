@@ -34,11 +34,8 @@ export default class View {
     }, 1000);
   }
 
-  showHeader() {
+  showPage() {
     header();
-  }
-
-  showMain() {
     main();
     this.cityNameInput = document.querySelector('.searchform__input');
   }

@@ -9,6 +9,7 @@ const sortWeatherData = (inputData) => {
   weatherData.windSpeed = data.wind.speed;
   weatherData.humidity = data.main.humidity;
   weatherData.pressure = data.main.grnd_level;
+  weatherData.weather = data.weather[0].main;
 
   return weatherData;
 };

@@ -3,6 +3,7 @@ import convertCoordinates from './utils/convertCoordinates';
 import convertDay from './utils/weekdayData';
 import convertMonth from './utils/montsData';
 import sortWeatherData from './utils/sortWeatherData';
+import dayPart from './utils/humanizedTime';
 
 
 export default class Model {
@@ -27,7 +28,8 @@ export default class Model {
     this.date = '';
     this.day = '';
     this.receivedTimeZone = '';
-    this.nextDays = [];
+    this.hours = '';
+    this.monthEn = '';
     this.fetchedWeather = {};
     this.currentWeater = {};
     this.nextDaysWeather = [];
@@ -112,8 +114,10 @@ export default class Model {
     const date = new Date();
     let weekday = convertDay(date.getDay())[this.language];
     const month = convertMonth(date.getMonth())[this.language];
+    this.monthEn = convertMonth(date.getMonth()).EN;
     this.day = date.getDay();
     const hours = date.getHours();
+    this.hours = hours;
     let minutes = date.getMinutes();
 
     if (this.language === 'EN') {
@@ -148,6 +152,7 @@ export default class Model {
         const ndate = date.split(match);
         let [, month] = ndate;
         const [, , day, hours, minutes] = ndate;
+        this.hours = hours;
         month = convertMonth(month - 1)[this.language];
 
         if (this.language === 'EN') {
@@ -160,8 +165,9 @@ export default class Model {
   }
 
   async getBackgroundPhoto() {
-    const [city] = this.location.split(',');
-    const url = `${this.photoUrl}town,${city}&client_id=${this.photoKey}`;
+    const dayTime = dayPart(this.hours);
+    const url = `${this.photoUrl}town,${this.currentWeater.weather},${dayTime},${this.monthEn}&client_id=${this.photoKey}`;
+    console.log(url);
     await fetch(url)
       .then(data => data.json())
       .then((imgData) => {
@@ -172,7 +178,7 @@ export default class Model {
   showLocation() {
     this.dmsLatitude = convertCoordinates(this.ddLatitude);
     this.dmsLongtitude = convertCoordinates(this.ddLongtitude);
-    showMap(this.ddLatitude, this.ddLongtitude);
+    showMap(this.ddLatitude, this.ddLongtitude, this.language);
     this.view.showCoordinatesOnPage(this.dmsLatitude, this.dmsLongtitude);
   }
 
@@ -182,6 +188,7 @@ export default class Model {
     this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
     this.view.showCoordinatesOnPage(this.dmsLatitude, this.dmsLongtitude);
     this.getDate();
+    showMap(this.ddLatitude, this.ddLongtitude, this.language);
     this.view.changeSearchButtonLanguage();
   }
 
