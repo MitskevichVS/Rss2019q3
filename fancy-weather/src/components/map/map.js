@@ -1,6 +1,6 @@
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
-const showMap = (latitude, longtitude) => {
+const showMap = (latitude, longtitude, lang) => {
   mapboxgl.accessToken = 'pk.eyJ1IjoidmljbSIsImEiOiJjazM3OGptajcwM2U2M2hub3VndW85bmY0In0.YjI_4SkVRa67Odgm-yrNvg';
   const map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/light-v10',
@@ -17,8 +17,16 @@ const showMap = (latitude, longtitude) => {
     requestAnimationFrame(rotateCamera);
   }
 
+  function setLanguage(language) {
+    map.setLayoutProperty('country-label', 'text-field', [
+      'get',
+      `name_${language}`,
+    ]);
+  }
+
   map.on('load', () => {
     rotateCamera(0);
+    setLanguage(lang.toLowerCase());
     const { layers } = map.getStyle();
 
     let labelLayerId;
