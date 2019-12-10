@@ -13,18 +13,12 @@ const showMap = (latitude, longtitude) => {
   });
 
   function rotateCamera(timestamp) {
-    // clamp the rotation between 0 -360 degrees
-    // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
-    map.rotateTo((timestamp / 100) % 360, { duration: 0 });
-    // Request the next frame of the animation.
+    map.rotateTo((timestamp / 200) % 360, { duration: 0 });
     requestAnimationFrame(rotateCamera);
   }
 
-  // The 'building' layer in the mapbox-streets vector source contains building-height
-  // data from OpenStreetMap.
   map.on('load', () => {
     rotateCamera(0);
-    // Insert the layer beneath any symbol layer.
     const { layers } = map.getStyle();
 
     let labelLayerId;
@@ -44,9 +38,6 @@ const showMap = (latitude, longtitude) => {
       minzoom: 15,
       paint: {
         'fill-extrusion-color': '#aaa',
-
-        // use an 'interpolate' expression to add a smooth transition effect to the
-        // buildings as the user zooms in
         'fill-extrusion-height': [
           'interpolate', ['linear'], ['zoom'],
           15, 0,
