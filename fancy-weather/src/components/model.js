@@ -1,10 +1,9 @@
 import showMap from './map/map';
-import {
-  convertCoordinates,
-  convertDay,
-  convertMonth,
-  sortWeatherData,
-} from './utils/utils';
+import convertCoordinates from './utils/convertCoordinates';
+import convertDay from './utils/weekdayData';
+import convertMonth from './utils/montsData';
+import sortWeatherData from './utils/sortWeatherData';
+
 
 export default class Model {
   constructor(view) {

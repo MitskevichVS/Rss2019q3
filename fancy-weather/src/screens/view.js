@@ -4,7 +4,7 @@ import header from './header/header';
 import main from './main/main';
 import weatherIcons from './elements/weatherIcons';
 import languageData from '../components/utils/languageData';
-import { getWindSpeedUnits } from '../components/utils/utils';
+import getWindSpeedUnits from '../components/utils/getWindSpeedUnits';
 import './page.scss';
 
 export default class View {

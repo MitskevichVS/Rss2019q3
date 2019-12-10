@@ -1,4 +1,4 @@
-import './header.scss';
+import './style/header.scss';
 
 const header = () => {
   const headerEl = document.createElement('header');
