@@ -5,6 +5,7 @@ import main from './main/main';
 import weatherIcons from './elements/weatherIcons';
 import languageData from '../components/utils/languageData';
 import getWindSpeedUnits from '../components/utils/getWindSpeedUnits';
+import showErrorScreen from './error/errorScreen';
 import './page.scss';
 
 export default class View {
@@ -24,6 +25,10 @@ export default class View {
 
   showLoader() {
     loader();
+  }
+
+  showError() {
+    showErrorScreen();
   }
 
   hideLoader() {

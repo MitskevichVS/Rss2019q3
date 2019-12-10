@@ -17,7 +17,8 @@ export default class App {
       .then(await this.model.getWeather())
       .then(await this.model.getLocationFromOpenCage('coordinates'))
       .then(this.model.getBackgroundPhoto())
-      .then(this.addEventListeners());
+      .then(this.addEventListeners())
+      .then(this.view.showError());
   }
 
   addEventListeners() {
