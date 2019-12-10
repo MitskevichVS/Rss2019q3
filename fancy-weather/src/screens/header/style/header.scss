@@ -1,11 +1,11 @@
 // @import '../assets/fonts/fonts.scss';
 @font-face {
   font-family:'Montserrat';
-  src: url('../assets/fonts/Montserrat Bold.eot');
-  src: url('../assets/fonts/Montserrat Bold.eot?#iefix') format('embedded-opentype'),
-  url('../assets/fonts/Montserrat Bold.woff2') format('woff2'),
-  url('../assets/fonts/Montserrat Bold.woff') format('woff'),
-  url('../assets/fonts/Montserrat Bold.svg#Montserrat Bold') format('svg');
+  src: url('../../assets/fonts/Montserrat Bold.eot');
+  src: url('../../assets/fonts/Montserrat Bold.eot?#iefix') format('embedded-opentype'),
+  url('../../assets/fonts/Montserrat Bold.woff2') format('woff2'),
+  url('../../assets/fonts/Montserrat Bold.woff') format('woff'),
+  url('../../assets/fonts/Montserrat Bold.svg#Montserrat Bold') format('svg');
   font-weight: 700;
   font-style: normal;
   font-stretch: normal;
@@ -28,7 +28,7 @@
       height: 44px;
       border: 0;
       border-radius: 5px;
-      background-image: url(../assets/img/refresh.png);
+      background-image: url(../../assets/img/refresh.png);
       background-repeat: no-repeat;
       background-position: 50% 50%;
       outline: none;
