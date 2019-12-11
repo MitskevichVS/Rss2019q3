@@ -51,6 +51,7 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({
     title: 'Fancy weather',
+    favicon: './src/screens/assets/img/favicon.png',
   }),
   ],
 };
