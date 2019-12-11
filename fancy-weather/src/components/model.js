@@ -10,7 +10,7 @@ import saveState from './utils/store';
 export default class Model {
   constructor(view) {
     this.view = view;
-    this.locationUrl = 'http://ip-api.com/json/?';
+    this.locationUrl = 'https://ipinfo.io?token=67c0a378f28ffd';
     this.openWeatherKey = '5278bebb89d5e1019b04f8a4a1264daa';
     this.openWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?';
     this.photoKey = '715e40b83c35861ef42aec9d9d3db56b9ddd73508a4e5c9a65e9c1100fa22712';
@@ -41,7 +41,7 @@ export default class Model {
       this.ddLongtitude = position.coords.longitude.toString().slice(0, 9);
       this.ddLatitude = position.coords.latitude.toString().slice(0, 9);
       this.showLocation();
-    }, () => console.log('Imagine, that I send error on server'), { timeout: 2000 });
+    });
   }
 
   async getLocationInfoByIp() {
