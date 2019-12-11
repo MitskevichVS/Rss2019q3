@@ -16,7 +16,6 @@ export default class View {
 
   changeLanguageConfig(lang) {
     this.languageConfig = languageData[lang];
-    console.log(this);
   }
 
   connectThirdPartyLinks() {
@@ -140,6 +139,7 @@ export default class View {
       container.style.background = `url("${url}")`;
       container.style.backgroundSize = 'cover';
       container.style.backgroundPosition = 'center';
+      container.style.backgroundRepeat = 'no-repeat';
       container.classList.remove('blur');
       this.hideLoader();
     };

@@ -40,15 +40,18 @@ export default class Model {
       this.ddLongtitude = position.coords.longitude.toString().slice(0, 9);
       this.ddLatitude = position.coords.latitude.toString().slice(0, 9);
       this.showLocation();
-    }, () => this.view.showError(), { timeout: 2000 });
+    }, () => console.log('Imagine, that I send error on server'), { timeout: 2000 });
   }
 
   async getLocationInfoByIp() {
     await fetch(this.locationUrl)
       .then(data => data.json())
       .then((locationData) => {
-        this.ddLatitude = locationData.lat;
-        this.ddLongtitude = locationData.lon;
+        if (this.ddLatitude === '' && this.ddLongtitude === '') {
+          this.ddLatitude = locationData.lat;
+          this.ddLongtitude = locationData.lon;
+          this.showLocation();
+        }
         this.city = locationData.city;
         this.location = `${locationData.city}, ${locationData.country}`;
         this.view.updateLocation(this.location);
@@ -179,7 +182,6 @@ export default class Model {
   async getBackgroundPhoto() {
     const dayTime = dayPart(this.hours);
     const url = `${this.photoUrl}town,${this.currentWeater.weather},${dayTime},${this.monthEn}&client_id=${this.photoKey}`;
-    console.log(url);
     await fetch(url)
       .then(data => data.json())
       .then((imgData) => {
