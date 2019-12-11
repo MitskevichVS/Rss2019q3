@@ -222,6 +222,9 @@ export default class Model {
 
     recognition.onresult = async (event) => {
       result = event.results[0][0].transcript;
+      if (!this.checkCitynameInputValue(result)) {
+        return;
+      }
       this.view.showSpeechResultOnPage(result);
       this.setCityFromSearch(result);
       await this.getLocationFromOpenCage('city');
