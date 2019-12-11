@@ -40,7 +40,7 @@ export default class Model {
       this.ddLongtitude = position.coords.longitude.toString().slice(0, 9);
       this.ddLatitude = position.coords.latitude.toString().slice(0, 9);
       this.showLocation();
-    }, (error) => { console.log(error); }, { timeout: 2000 });
+    }, () => this.view.showError(), { timeout: 2000 });
   }
 
   async getLocationInfoByIp() {
@@ -52,6 +52,9 @@ export default class Model {
         this.city = locationData.city;
         this.location = `${locationData.city}, ${locationData.country}`;
         this.view.updateLocation(this.location);
+      })
+      .catch(() => {
+        this.view.showError();
       });
     return [this.ddLatitude, this.ddLongtitude];
   }
@@ -89,6 +92,9 @@ export default class Model {
             break;
           }
         }
+      })
+      .catch(() => {
+        this.view.showError();
       });
   }
 
@@ -107,6 +113,9 @@ export default class Model {
         ];
         this.view.updateMainWeatherInfo(this.currentWeater, this.units);
         this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
+      })
+      .catch(() => {
+        this.view.showError();
       });
   }
 
@@ -161,6 +170,9 @@ export default class Model {
 
         this.date = `${weekday} ${day} ${month} ${hours}:${minutes}`;
         this.view.updateDate(this.date);
+      })
+      .catch(() => {
+        this.view.showError();
       });
   }
 
@@ -172,6 +184,9 @@ export default class Model {
       .then(data => data.json())
       .then((imgData) => {
         this.view.updateBackgroundImg(imgData.urls.raw);
+      })
+      .catch(() => {
+        this.view.showError();
       });
   }
 

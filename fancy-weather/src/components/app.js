@@ -18,7 +18,7 @@ export default class App {
       .then(await this.model.getLocationFromOpenCage('coordinates'))
       .then(this.model.getBackgroundPhoto())
       .then(this.addEventListeners())
-      .then(this.view.showError());
+      .catch(() => this.view.showError());
   }
 
   addEventListeners() {
