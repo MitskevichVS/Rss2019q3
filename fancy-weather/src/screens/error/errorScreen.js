@@ -10,8 +10,13 @@ const showErrorScreen = () => {
   const astronaut = document.createElement('div');
   astronaut.className = 'container__image';
 
+  const message = document.createElement('p');
+  message.className = 'background__text';
+  message.innerText = 'Something went wrong. Try again.';
+
   container.appendChild(astronaut);
   background.appendChild(container);
+  background.appendChild(message);
 
   document.body.appendChild(background);
 };

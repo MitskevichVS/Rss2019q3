@@ -1,3 +1,5 @@
+@import '../assets/fonts/fonts.scss';
+
 .background-error {
   margin: 0;
   padding: 0;
@@ -30,15 +32,14 @@
     }
   }
 
-  .text-error {
+  .background__text {
     position: absolute;
-    display: block;
     color: #fff;
-    top: 0;
-    bottom: 0;
     margin: auto;
-    line-height: 100vh;
-    font-size: 2em;
+    font-size: 1.5em;
+    font-family: 'xoloniumregular', sans-serif;
+    width: 100%;
+    text-align: center;
   }
 
 }
