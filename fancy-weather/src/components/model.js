@@ -4,6 +4,7 @@ import convertDay from './utils/weekdayData';
 import convertMonth from './utils/montsData';
 import sortWeatherData from './utils/sortWeatherData';
 import dayPart from './utils/humanizedTime';
+import saveState from './utils/store';
 
 
 export default class Model {
@@ -17,8 +18,8 @@ export default class Model {
     this.openCageService = 'https://api.opencagedata.com/geocode/v1/json?';
     this.openCageKey = 'key=34b53ec7436b4c5dad3675a2f577dace';
     this.worldTimeApi = 'http://worldtimeapi.org/api/timezone/';
-    this.units = 'metric';
-    this.language = 'EN';
+    this.units = localStorage.getItem('units') || 'metric';
+    this.language = localStorage.getItem('language') || 'EN';
     this.ddLongtitude = '';
     this.ddLatitude = '';
     this.dmsLongtitude = '';
@@ -249,5 +250,9 @@ export default class Model {
       this.showLocation();
       await this.getWeather();
     };
+  }
+
+  saveItemsToLocalStorage() {
+    saveState(this.language, this.units);
   }
 }

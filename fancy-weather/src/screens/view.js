@@ -44,6 +44,19 @@ export default class View {
     this.cityNameInput = document.querySelector('.searchform__input');
   }
 
+  restoreState(lang, units) {
+    const langSelect = document.querySelector('#languageSelect');
+    const unitSlider = document.querySelector('#units');
+
+    langSelect.value = lang;
+
+    if (units === 'imperial') {
+      unitSlider.checked = true;
+    } else {
+      unitSlider.checked = false;
+    }
+  }
+
   changeScale(target) {
     const targetEl = target;
     targetEl.style.transform = 'scale(0.9)';

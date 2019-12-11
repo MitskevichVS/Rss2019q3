@@ -11,6 +11,10 @@ export default class App {
     this.view.connectThirdPartyLinks();
     this.view.showLoader();
     this.view.showPage();
+    this.view.restoreState(
+      localStorage.getItem('language') || 'EN',
+      localStorage.getItem('units') || 'metric',
+    );
     this.model.getDate();
     await this.model.getAccurateCoordinates()
       .then(await this.model.getLocationInfoByIp())
@@ -29,6 +33,8 @@ export default class App {
     const searchButtonByCity = document.querySelector('.searchform__button-search');
     const voiceControlButton = document.querySelector('.searchform__button-voice');
     const cityNameInput = document.querySelector('.searchform__input');
+
+    window.onbeforeunload = () => this.model.saveItemsToLocalStorage();
 
     backgroundButton.addEventListener('click', async (event) => {
       if (!event.target.id) {
