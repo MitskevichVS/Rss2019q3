@@ -12,6 +12,7 @@ export default class View {
   constructor() {
     this.languageConfig = languageData.EN;
     this.cityNameInput = document.querySelector('.searchform__input');
+    this.loader = '';
   }
 
   changeLanguageConfig(lang) {
@@ -22,19 +23,26 @@ export default class View {
     head();
   }
 
-  showLoader() {
+  initLoader() {
     loader();
+    this.loader = document.querySelector('.loading');
+  }
+
+  showLoader() {
+    this.loader.classList.remove('hide_loading', 'disable-loading');
   }
 
   showError() {
     showErrorScreen();
+    setTimeout(() => {
+      this.hideLoader();
+    }, 6000);
   }
 
   hideLoader() {
-    const loaderScreen = document.querySelector('.loading');
-    loaderScreen.classList.add('hide_loading');
+    this.loader.classList.add('hide_loading');
     setTimeout(() => {
-      loaderScreen.classList.add('disable-loading');
+      this.loader.classList.add('disable-loading');
     }, 1000);
   }
 
