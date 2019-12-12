@@ -17,7 +17,7 @@ export default class Model {
     this.photoUrl = 'https://api.unsplash.com/photos/random?query=';
     this.openCageService = 'https://api.opencagedata.com/geocode/v1/json?';
     this.openCageKey = 'key=34b53ec7436b4c5dad3675a2f577dace';
-    this.worldTimeApi = 'http://worldtimeapi.org/api/timezone/';
+    this.worldTimeApi = 'https://worldtimeapi.org/api/timezone/';
     this.units = localStorage.getItem('units') || 'metric';
     this.language = localStorage.getItem('language') || 'EN';
     this.ddLongtitude = '';
@@ -49,18 +49,19 @@ export default class Model {
       .then(data => data.json())
       .then((locationData) => {
         if (this.ddLatitude === '' && this.ddLongtitude === '') {
-          this.ddLatitude = locationData.lat;
-          this.ddLongtitude = locationData.lon;
+          [this.ddLatitude, this.ddLongtitude] = locationData.loc.split(',');
           this.showLocation();
         }
         this.city = locationData.city;
         this.location = `${locationData.city}, ${locationData.country}`;
         this.view.updateLocation(this.location);
+        this.getWeather();
+        this.getLocationFromOpenCage('coordinates');
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         this.view.showError();
       });
-    return [this.ddLatitude, this.ddLongtitude];
   }
 
   async getLocationFromOpenCage(from) {
@@ -97,7 +98,8 @@ export default class Model {
           }
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         this.view.showError();
       });
   }
@@ -118,7 +120,8 @@ export default class Model {
         this.view.updateMainWeatherInfo(this.currentWeater, this.units);
         this.view.updateNextWeatherInfo(this.nextDaysWeather, this.days);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         this.view.showError();
       });
   }
@@ -175,7 +178,8 @@ export default class Model {
         this.date = `${weekday} ${day} ${month} ${hours}:${minutes}`;
         this.view.updateDate(this.date);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         this.view.showError();
       });
   }
@@ -188,7 +192,8 @@ export default class Model {
       .then((imgData) => {
         this.view.updateBackgroundImg(imgData.urls.raw);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         this.view.showError();
       });
   }

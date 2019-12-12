@@ -9,20 +9,17 @@ export default class App {
 
   async start() {
     this.view.connectThirdPartyLinks();
-    this.view.showLoader();
+    this.view.initLoader();
     this.view.showPage();
     this.view.restoreState(
       localStorage.getItem('language') || 'EN',
       localStorage.getItem('units') || 'metric',
     );
     this.model.getDate();
-    await this.model.getAccurateCoordinates()
-      .then(await this.model.getLocationInfoByIp())
-      .then(await this.model.getWeather())
-      .then(await this.model.getLocationFromOpenCage('coordinates'))
-      .then(this.model.getBackgroundPhoto())
-      .then(this.addEventListeners())
-      .catch(() => this.view.showError());
+    this.model.getAccurateCoordinates();
+    this.model.getLocationInfoByIp();
+    this.model.getBackgroundPhoto();
+    this.addEventListeners();
   }
 
   addEventListeners() {
@@ -72,11 +69,13 @@ export default class App {
         return;
       }
 
+      this.view.showLoader();
       this.model.setCityFromSearch(inputValue);
       await this.model.getLocationFromOpenCage('city');
       await this.model.getDateByRequest();
-      await this.model.showLocation();
+      this.model.showLocation();
       await this.model.getWeather();
+      await this.model.getBackgroundPhoto();
     });
 
     voiceControlButton.addEventListener('click', async () => {
