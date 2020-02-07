@@ -1,2 +1,1 @@
-# mitskevichvs-RS2019Q3
-Private repository for @mitskevichvs
+### Repository from rss2019q3
